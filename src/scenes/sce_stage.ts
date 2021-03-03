@@ -1,6 +1,6 @@
 import {float, set_seed} from "../../common/random.js";
 import {control_mob, MobKind} from "../components/com_control_mob.js";
-import {draw_rect} from "../components/com_draw.js";
+import {draw_circle, draw_rect} from "../components/com_draw.js";
 import {move} from "../components/com_move.js";
 import {instantiate} from "../entity.js";
 import {Game} from "../game.js";
@@ -26,6 +26,6 @@ export function scene_stage(game: Game) {
             game.ViewportHeight / 2,
         ],
         Rotation: Math.PI / 2,
-        Using: [draw_rect(20, 20, "red"), move(40), control_mob(MobKind.Light)],
+        Using: [draw_circle(10, "red"), move(40), control_mob(MobKind.Light)],
     });
 }
