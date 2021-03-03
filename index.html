@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <meta charset="utf8" />
 <meta name="viewport" content="width=device-width, user-scalable=0" />
-<title>NewProject2D</title>
+<title>PewPew</title>
 <style>
     html,
     body {
         overflow: hidden;
         margin: 0;
+        display: grid;
+        place-items: center;
+        height: 100vh;
     }
-    canvas,
-    main {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+    canvas {
+        width: 1000px;
+        height: 1000px;
         user-select: none;
     }
+
     #debug {
         display: flex;
         flex-flow: column nowrap;
@@ -43,7 +43,6 @@
 </style>
 <body>
     <canvas></canvas>
-    <main></main>
 
     <div id="debug">
         <div>update: <span id="update"></span></div>
@@ -55,8 +54,8 @@
         const DEBUG = true;
     </script>
     <script type="module">
-        import {loop_start, loop_stop} from "./loop.js";
-        import "./index.js";
+        import {loop_start, loop_stop} from "./src/loop.js";
+        import "./src/index.js";
 
         let running = true;
         window.toggle = function toggle(button) {
