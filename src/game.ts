@@ -4,6 +4,7 @@ import {sys_control_spawn} from "./systems/sys_control_spawn.js";
 import {sys_draw2d} from "./systems/sys_draw2d.js";
 import {sys_framerate} from "./systems/sys_framerate.js";
 import {sys_move} from "./systems/sys_move.js";
+import {sys_shake} from "./systems/sys_shake.js";
 import {sys_transform2d} from "./systems/sys_transform2d.js";
 import {World} from "./world.js";
 
@@ -47,6 +48,7 @@ export class Game {
 
         // Game logic.
         sys_move(this, delta);
+        sys_shake(this, delta);
 
         // Commit.
         sys_transform2d(this, delta);

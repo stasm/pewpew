@@ -3,6 +3,7 @@ import {control_mob, MobKind} from "../components/com_control_mob.js";
 import {control_spawn} from "../components/com_control_spawn.js";
 import {draw_circle, draw_rect} from "../components/com_draw.js";
 import {move} from "../components/com_move.js";
+import {shake} from "../components/com_shake.js";
 import {Blueprint2D, instantiate} from "../entity.js";
 import {Game} from "../game.js";
 import {World} from "../world.js";
@@ -24,7 +25,11 @@ export function scene_stage(game: Game) {
     instantiate(game, {
         Translation: [game.ViewportWidth / 2, game.ViewportHeight / 2],
         Rotation: Math.PI / 2,
-        Using: [control_spawn(mob_light_blueprint, 1)],
+        Children: [
+            {
+                Using: [control_spawn(mob_light_blueprint, 1), shake(Infinity, 100)],
+            },
+        ],
     });
 }
 
