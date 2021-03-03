@@ -1,4 +1,5 @@
 import {loop_start, loop_stop} from "./loop.js";
+import {sys_control_mob} from "./systems/sys_control_mob.js";
 import {sys_draw2d} from "./systems/sys_draw2d.js";
 import {sys_framerate} from "./systems/sys_framerate.js";
 import {sys_move} from "./systems/sys_move.js";
@@ -38,8 +39,17 @@ export class Game {
 
     FrameUpdate(delta: number) {
         let now = performance.now();
+
+        // AI.
+        sys_control_mob(this, delta);
+
+        // Game logic.
         sys_move(this, delta);
+
+        // Commit.
         sys_transform2d(this, delta);
+
+        // Render.
         sys_draw2d(this, delta);
         sys_framerate(this, delta, performance.now() - now);
     }

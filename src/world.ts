@@ -1,15 +1,18 @@
+import {ControlMob} from "./components/com_control_mob.js";
 import {Draw} from "./components/com_draw.js";
 import {Move} from "./components/com_move.js";
 import {Transform2D} from "./components/com_transform2d.js";
 import {Entity} from "./game.js";
 
 const enum Component {
+    ControlMob,
     Draw,
     Move,
     Transform2D,
 }
 
 export const enum Has {
+    ControlMob = 1 << Component.ControlMob,
     Draw = 1 << Component.Draw,
     Move = 1 << Component.Move,
     Transform2D = 1 << Component.Transform2D,
@@ -20,6 +23,7 @@ export class World {
     Graveyard: Array<Entity> = [];
 
     // Component data
+    ControlMob: Array<ControlMob> = [];
     Draw: Array<Draw> = [];
     Move: Array<Move> = [];
     Transform2D: Array<Transform2D> = [];
