@@ -1,14 +1,17 @@
 import {Draw} from "./components/com_draw.js";
+import {Move} from "./components/com_move.js";
 import {Transform2D} from "./components/com_transform2d.js";
 import {Entity} from "./game.js";
 
 const enum Component {
     Draw,
+    Move,
     Transform2D,
 }
 
 export const enum Has {
     Draw = 1 << Component.Draw,
+    Move = 1 << Component.Move,
     Transform2D = 1 << Component.Transform2D,
 }
 
@@ -18,6 +21,7 @@ export class World {
 
     // Component data
     Draw: Array<Draw> = [];
+    Move: Array<Move> = [];
     Transform2D: Array<Transform2D> = [];
 
     CreateEntity() {
