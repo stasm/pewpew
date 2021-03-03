@@ -159,6 +159,10 @@ export function get_scaling(out: Vec2, a: Mat2D) {
     return out;
 }
 
+export function get_rotation(a: Mat2D) {
+    return Math.atan2(a[1], a[0]);
+}
+
 export function get_translation(out: Vec2, a: Mat2D) {
     out[0] = a[4];
     out[1] = a[5];

@@ -1,5 +1,6 @@
 import {loop_start, loop_stop} from "./loop.js";
 import {sys_control_mob} from "./systems/sys_control_mob.js";
+import {sys_control_spawn} from "./systems/sys_control_spawn.js";
 import {sys_draw2d} from "./systems/sys_draw2d.js";
 import {sys_framerate} from "./systems/sys_framerate.js";
 import {sys_move} from "./systems/sys_move.js";
@@ -42,6 +43,7 @@ export class Game {
 
         // AI.
         sys_control_mob(this, delta);
+        sys_control_spawn(this, delta);
 
         // Game logic.
         sys_move(this, delta);
