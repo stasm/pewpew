@@ -31,7 +31,7 @@ function update(game: Game, entity: Entity, delta: number) {
 
     let x = Math.floor(world_position[0] / cell_width);
     let y = Math.floor(world_position[1] / cell_height);
-    let cell = game.Grid[y][x];
+    let cell = game.Grid[y]?.[x];
 
     if (cell) {
         grid.Cell = cell;

@@ -1,9 +1,11 @@
 import {GridCell} from "./components/com_grid.js";
 import {loop_start, loop_stop} from "./loop.js";
 import {sys_aim} from "./systems/sys_aim.js";
+import {sys_collide} from "./systems/sys_collide.js";
 import {sys_control_mob} from "./systems/sys_control_mob.js";
 import {sys_control_spawn} from "./systems/sys_control_spawn.js";
 import {sys_control_turret} from "./systems/sys_control_turret.js";
+import {sys_damage} from "./systems/sys_damage.js";
 import {sys_draw2d} from "./systems/sys_draw2d.js";
 import {sys_framerate} from "./systems/sys_framerate.js";
 import {sys_grid} from "./systems/sys_grid.js";
@@ -52,6 +54,10 @@ export class Game {
         // Commit.
         sys_transform2d(this, delta);
         sys_grid(this, delta);
+
+        // Collisions.
+        sys_collide(this, delta);
+        sys_damage(this, delta);
 
         // Render.
         sys_draw2d(this, delta);

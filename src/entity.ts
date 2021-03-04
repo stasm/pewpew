@@ -37,5 +37,8 @@ export function destroy(world: World, entity: Entity) {
             destroy(world, child);
         }
     }
-    world.DestroyEntity(entity);
+
+    if (world.Signature[entity] !== 0) {
+        world.DestroyEntity(entity);
+    }
 }

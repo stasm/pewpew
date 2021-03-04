@@ -1,8 +1,10 @@
 import {float, set_seed} from "../../common/random.js";
 import {aim} from "../components/com_aim.js";
+import {collide} from "../components/com_collide.js";
 import {control_mob, MobKind} from "../components/com_control_mob.js";
 import {control_spawn} from "../components/com_control_spawn.js";
 import {control_turret} from "../components/com_control_turret.js";
+import {damage} from "../components/com_damage.js";
 import {draw_circle, draw_rect} from "../components/com_draw.js";
 import {grid} from "../components/com_grid.js";
 import {lifespan} from "../components/com_lifespan.js";
@@ -59,7 +61,19 @@ export function scene_stage(game: Game) {
     }
 
     instantiate(game, {
-        Translation: [game.ViewportWidth / 2, game.ViewportHeight * 0.9],
+        Translation: [game.ViewportWidth * 0.2, game.ViewportHeight * 0.9],
+        ...turret_blueprint(game),
+    });
+    instantiate(game, {
+        Translation: [game.ViewportWidth * 0.4, game.ViewportHeight * 0.9],
+        ...turret_blueprint(game),
+    });
+    instantiate(game, {
+        Translation: [game.ViewportWidth * 0.6, game.ViewportHeight * 0.9],
+        ...turret_blueprint(game),
+    });
+    instantiate(game, {
+        Translation: [game.ViewportWidth * 0.8, game.ViewportHeight * 0.9],
         ...turret_blueprint(game),
     });
 
@@ -73,11 +87,15 @@ export function scene_stage(game: Game) {
     });
 
     instantiate(game, {
-        Translation: [game.ViewportWidth / 2, game.ViewportHeight / 2],
+        Translation: [game.ViewportWidth / 2, game.ViewportHeight / 10],
         Rotation: Math.PI / 2,
+        Scale: [1, 5],
         Children: [
             {
-                Using: [control_spawn(mob_light_blueprint, 1), shake(Infinity, 100)],
+                Using: [control_spawn(mob_light_blueprint, 0.1), shake(Infinity, 100)],
+            },
+            {
+                Using: [control_spawn(mob_light_blueprint, 0.1), shake(Infinity, 100)],
             },
         ],
     });
@@ -94,7 +112,14 @@ function mob_light_blueprint(game: Game): Blueprint2D {
             game.ViewportHeight / 2,
         ],
         Rotation: Math.PI / 2,
-        Using: [draw_circle(10, "red"), move(40), control_mob(MobKind.Light), lifespan(5), grid()],
+        Using: [
+            draw_circle(10, "red"),
+            move(40),
+            control_mob(MobKind.Light),
+            lifespan(20),
+            grid(),
+            collide(10),
+        ],
     };
 }
 
@@ -106,13 +131,13 @@ function turret_blueprint(game: Game): Blueprint2D {
             grid(),
             control_turret(),
             aim(),
-            control_spawn(bullet_blueprint, 1),
+            control_spawn(bullet_blueprint, 0.3),
         ],
     };
 }
 
 function bullet_blueprint(game: Game): Blueprint2D {
     return {
-        Using: [draw_rect(5, 5, "black"), move(100), lifespan(10)],
+        Using: [draw_rect(5, 5, "black"), move(100), lifespan(10), collide(2), damage(1)],
     };
 }

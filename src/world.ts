@@ -1,7 +1,9 @@
 import {Aim} from "./components/com_aim.js";
+import {Collide} from "./components/com_collide.js";
 import {ControlMob} from "./components/com_control_mob.js";
 import {ControlSpawn} from "./components/com_control_spawn.js";
 import {ControlTurret} from "./components/com_control_turret.js";
+import {Damage} from "./components/com_damage.js";
 import {Draw} from "./components/com_draw.js";
 import {Grid} from "./components/com_grid.js";
 import {Lifespan} from "./components/com_lifespan.js";
@@ -12,9 +14,11 @@ import {Entity} from "./game.js";
 
 const enum Component {
     Aim,
+    Collide,
     ControlMob,
     ControlSpawn,
     ControlTurret,
+    Damage,
     Draw,
     Lifespan,
     Grid,
@@ -25,9 +29,11 @@ const enum Component {
 
 export const enum Has {
     Aim = 1 << Component.Aim,
+    Collide = 1 << Component.Collide,
     ControlMob = 1 << Component.ControlMob,
     ControlSpawn = 1 << Component.ControlSpawn,
     ControlTurret = 1 << Component.ControlTurret,
+    Damage = 1 << Component.Damage,
     Draw = 1 << Component.Draw,
     Lifespan = 1 << Component.Lifespan,
     Grid = 1 << Component.Grid,
@@ -42,9 +48,11 @@ export class World {
 
     // Component data
     Aim: Array<Aim> = [];
+    Collide: Array<Collide> = [];
     ControlMob: Array<ControlMob> = [];
     ControlSpawn: Array<ControlSpawn> = [];
     ControlTurret: Array<ControlTurret> = [];
+    Damage: Array<Damage> = [];
     Draw: Array<Draw> = [];
     Lifespan: Array<Lifespan> = [];
     Grid: Array<Grid> = [];
