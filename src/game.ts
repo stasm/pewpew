@@ -25,7 +25,7 @@ export class Game {
     InputDelta: Record<string, number> = {};
 
     Canvas = document.querySelector("canvas")!;
-    Context2D: CanvasRenderingContext2D;
+    Context2D = this.Canvas.getContext("2d")!;
 
     Grid: Array<Array<GridCell>> = [];
 
@@ -34,10 +34,8 @@ export class Game {
             document.hidden ? loop_stop() : loop_start(this)
         );
 
-        this.Canvas = document.querySelector("canvas")!;
         this.Canvas.width = this.ViewportWidth;
         this.Canvas.height = this.ViewportHeight;
-        this.Context2D = this.Canvas.getContext("2d")!;
     }
 
     FrameReset() {
