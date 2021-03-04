@@ -1,4 +1,5 @@
 import {float, set_seed} from "../../common/random.js";
+import {aim} from "../components/com_aim.js";
 import {control_mob, MobKind} from "../components/com_control_mob.js";
 import {control_spawn} from "../components/com_control_spawn.js";
 import {control_turret} from "../components/com_control_turret.js";
@@ -100,6 +101,6 @@ function mob_light_blueprint(game: Game): Blueprint2D {
 function turret_blueprint(game: Game): Blueprint2D {
     return {
         Rotation: -Math.PI / 2,
-        Using: [draw_circle(10, "yellow"), grid(), control_turret()],
+        Using: [draw_circle(10, "yellow"), grid(), control_turret(), aim()],
     };
 }

@@ -1,3 +1,4 @@
+import {Aim} from "./components/com_aim.js";
 import {ControlMob} from "./components/com_control_mob.js";
 import {ControlSpawn} from "./components/com_control_spawn.js";
 import {ControlTurret} from "./components/com_control_turret.js";
@@ -10,6 +11,7 @@ import {Transform2D} from "./components/com_transform2d.js";
 import {Entity} from "./game.js";
 
 const enum Component {
+    Aim,
     ControlMob,
     ControlSpawn,
     ControlTurret,
@@ -22,6 +24,7 @@ const enum Component {
 }
 
 export const enum Has {
+    Aim = 1 << Component.Aim,
     ControlMob = 1 << Component.ControlMob,
     ControlSpawn = 1 << Component.ControlSpawn,
     ControlTurret = 1 << Component.ControlTurret,
@@ -38,6 +41,7 @@ export class World {
     Graveyard: Array<Entity> = [];
 
     // Component data
+    Aim: Array<Aim> = [];
     ControlMob: Array<ControlMob> = [];
     ControlSpawn: Array<ControlSpawn> = [];
     ControlTurret: Array<ControlTurret> = [];

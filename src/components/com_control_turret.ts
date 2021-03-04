@@ -2,14 +2,12 @@ import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
 export interface ControlTurret {
-    Target?: Entity;
+    // TODO Maybe remove component data?
 }
 
 export function control_turret() {
     return (game: Game, entity: Entity) => {
         game.World.Signature[entity] |= Has.ControlTurret;
-        game.World.ControlTurret[entity] = {
-            Target: undefined,
-        };
+        game.World.ControlTurret[entity] = {};
     };
 }

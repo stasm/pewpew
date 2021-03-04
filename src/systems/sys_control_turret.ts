@@ -3,7 +3,7 @@ import {GridCell} from "../components/com_grid.js";
 import {Entity, Game} from "../game.js";
 import {Has, World} from "../world.js";
 
-const QUERY = Has.ControlTurret | Has.Grid;
+const QUERY = Has.Aim | Has.ControlTurret | Has.Grid;
 
 export function sys_control_turret(game: Game, delta: number) {
     for (let i = 0; i < game.World.Signature.length; i++) {
@@ -14,7 +14,7 @@ export function sys_control_turret(game: Game, delta: number) {
 }
 
 function update(game: Game, entity: Entity) {
-    let control = game.World.ControlTurret[entity];
+    let aim = game.World.Aim[entity];
     let grid = game.World.Grid[entity];
 
     if (!grid.Cell) {
@@ -24,9 +24,9 @@ function update(game: Game, entity: Entity) {
     let mobs = find_nearest_mobs(game.World, grid.Cell);
     if (mobs) {
         let mob = element(mobs);
-        control.Target = mob;
+        aim.Target = mob;
     } else {
-        control.Target = undefined;
+        aim.Target = undefined;
     }
 }
 

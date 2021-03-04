@@ -1,5 +1,6 @@
 import {GridCell} from "./components/com_grid.js";
 import {loop_start, loop_stop} from "./loop.js";
+import {sys_aim} from "./systems/sys_aim.js";
 import {sys_control_mob} from "./systems/sys_control_mob.js";
 import {sys_control_spawn} from "./systems/sys_control_spawn.js";
 import {sys_control_turret} from "./systems/sys_control_turret.js";
@@ -57,6 +58,7 @@ export class Game {
         sys_lifespan(this, delta);
         sys_move(this, delta);
         sys_shake(this, delta);
+        sys_aim(this, delta);
 
         // Commit.
         sys_transform2d(this, delta);
