@@ -31,7 +31,7 @@ function update(game: Game, entity: Entity, delta: number) {
         instantiate(game, {
             ...control.Creator(game),
             Translation: world_position,
-            Rotation: world_rotation,
+            Rotation: world_rotation + (Math.random() - 0.5) * control.Scatter,
         });
     }
 }

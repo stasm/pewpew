@@ -77,10 +77,10 @@ export function scene_stage(game: Game) {
         Scale: [1, 5],
         Children: [
             {
-                Using: [control_spawn(mob_light_blueprint, 0.1), shake(Infinity, 100)],
+                Using: [control_spawn(mob_light_blueprint, 0.1, 0.3), shake(Infinity, 100)],
             },
             {
-                Using: [control_spawn(mob_heavy_blueprint, 5), shake(Infinity, 100)],
+                Using: [control_spawn(mob_heavy_blueprint, 5, 0.5), shake(Infinity, 100)],
             },
         ],
     });
@@ -126,7 +126,7 @@ function turret_blueprint(game: Game): Blueprint2D {
             grid(),
             control_turret(),
             aim(),
-            control_spawn(bullet_blueprint, 0.3),
+            control_spawn(bullet_blueprint, 0.3, 0.1),
         ],
     };
 }
