@@ -1,4 +1,4 @@
-import {float, set_seed} from "../../common/random.js";
+import {set_seed} from "../../common/random.js";
 import {aim} from "../components/com_aim.js";
 import {collide} from "../components/com_collide.js";
 import {control_mob, MobKind} from "../components/com_control_mob.js";
@@ -7,6 +7,7 @@ import {control_turret} from "../components/com_control_turret.js";
 import {damage} from "../components/com_damage.js";
 import {draw_circle, draw_rect} from "../components/com_draw.js";
 import {grid} from "../components/com_grid.js";
+import {health} from "../components/com_health.js";
 import {lifespan} from "../components/com_lifespan.js";
 import {move} from "../components/com_move.js";
 import {shake} from "../components/com_shake.js";
@@ -58,31 +59,12 @@ export function scene_stage(game: Game) {
         }
     }
 
-    instantiate(game, {
-        Translation: [game.ViewportWidth * 0.2, game.ViewportHeight * 0.9],
-        ...turret_blueprint(game),
-    });
-    instantiate(game, {
-        Translation: [game.ViewportWidth * 0.4, game.ViewportHeight * 0.9],
-        ...turret_blueprint(game),
-    });
-    instantiate(game, {
-        Translation: [game.ViewportWidth * 0.6, game.ViewportHeight * 0.9],
-        ...turret_blueprint(game),
-    });
-    instantiate(game, {
-        Translation: [game.ViewportWidth * 0.8, game.ViewportHeight * 0.9],
-        ...turret_blueprint(game),
-    });
-
-    instantiate(game, {
-        Translation: [
-            float(game.ViewportHeight * 0.1, game.ViewportWidth * 0.9),
-            game.ViewportHeight / 2,
-        ],
-        Rotation: Math.PI / 2,
-        Using: [draw_rect(40, 40, "red"), move(20), control_mob(MobKind.Heavy)],
-    });
+    for (let i = 1; i < 10; i++) {
+        instantiate(game, {
+            Translation: [game.ViewportWidth * 0.1 * i, game.ViewportHeight * 0.9],
+            ...turret_blueprint(game),
+        });
+    }
 
     instantiate(game, {
         Translation: [game.ViewportWidth / 2, game.ViewportHeight / 10],
@@ -93,7 +75,7 @@ export function scene_stage(game: Game) {
                 Using: [control_spawn(mob_light_blueprint, 0.1), shake(Infinity, 100)],
             },
             {
-                Using: [control_spawn(mob_light_blueprint, 0.1), shake(Infinity, 100)],
+                Using: [control_spawn(mob_heavy_blueprint, 5), shake(Infinity, 100)],
             },
         ],
     });
@@ -105,11 +87,6 @@ export function scene_stage(game: Game) {
 
 function mob_light_blueprint(game: Game): Blueprint2D {
     return {
-        Translation: [
-            float(game.ViewportWidth * 0.1, game.ViewportWidth * 0.9),
-            game.ViewportHeight / 2,
-        ],
-        Rotation: Math.PI / 2,
         Using: [
             draw_circle(10, "red"),
             move(40),
@@ -117,6 +94,21 @@ function mob_light_blueprint(game: Game): Blueprint2D {
             lifespan(20),
             grid(),
             collide(10),
+            health(1),
+        ],
+    };
+}
+
+function mob_heavy_blueprint(game: Game): Blueprint2D {
+    return {
+        Using: [
+            draw_circle(20, "dodgerblue"),
+            move(20),
+            control_mob(MobKind.Heavy),
+            lifespan(40),
+            grid(),
+            collide(20),
+            health(5),
         ],
     };
 }
@@ -136,6 +128,6 @@ function turret_blueprint(game: Game): Blueprint2D {
 
 function bullet_blueprint(game: Game): Blueprint2D {
     return {
-        Using: [draw_rect(5, 5, "black"), move(100), lifespan(10), collide(3), damage(1), grid()],
+        Using: [draw_rect(5, 5, "black"), move(100), lifespan(10), collide(5), damage(1), grid()],
     };
 }

@@ -6,6 +6,7 @@ import {ControlTurret} from "./components/com_control_turret.js";
 import {Damage} from "./components/com_damage.js";
 import {Draw} from "./components/com_draw.js";
 import {Grid} from "./components/com_grid.js";
+import {Health} from "./components/com_health.js";
 import {Lifespan} from "./components/com_lifespan.js";
 import {Move} from "./components/com_move.js";
 import {Shake} from "./components/com_shake.js";
@@ -22,6 +23,7 @@ const enum Component {
     Draw,
     Lifespan,
     Grid,
+    Health,
     Move,
     Shake,
     Transform2D,
@@ -37,6 +39,7 @@ export const enum Has {
     Draw = 1 << Component.Draw,
     Lifespan = 1 << Component.Lifespan,
     Grid = 1 << Component.Grid,
+    Health = 1 << Component.Health,
     Move = 1 << Component.Move,
     Shake = 1 << Component.Shake,
     Transform2D = 1 << Component.Transform2D,
@@ -56,6 +59,7 @@ export class World {
     Draw: Array<Draw> = [];
     Lifespan: Array<Lifespan> = [];
     Grid: Array<Grid> = [];
+    Health: Array<Health> = [];
     Move: Array<Move> = [];
     Shake: Array<Shake> = [];
     Transform2D: Array<Transform2D> = [];

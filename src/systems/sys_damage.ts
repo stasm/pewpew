@@ -21,6 +21,12 @@ function update(game: Game, entity: Entity) {
     }
 
     for (let collision of collide.Collisions) {
-        setTimeout(() => destroy(game.World, collision.EntityId));
+        let other = collision.EntityId;
+        if (game.World.Signature[other] & Has.Health) {
+            let health = game.World.Health[other];
+            health.Amount -= damage.Amount;
+        } else {
+            setTimeout(() => destroy(game.World, collision.EntityId));
+        }
     }
 }
