@@ -1,8 +1,10 @@
+import {GridCell} from "./components/com_grid.js";
 import {loop_start, loop_stop} from "./loop.js";
 import {sys_control_mob} from "./systems/sys_control_mob.js";
 import {sys_control_spawn} from "./systems/sys_control_spawn.js";
 import {sys_draw2d} from "./systems/sys_draw2d.js";
 import {sys_framerate} from "./systems/sys_framerate.js";
+import {sys_grid} from "./systems/sys_grid.js";
 import {sys_lifespan} from "./systems/sys_lifespan.js";
 import {sys_move} from "./systems/sys_move.js";
 import {sys_shake} from "./systems/sys_shake.js";
@@ -22,6 +24,8 @@ export class Game {
 
     Canvas = document.querySelector("canvas")!;
     Context2D: CanvasRenderingContext2D;
+
+    Grid: Array<Array<GridCell>> = [];
 
     constructor() {
         document.addEventListener("visibilitychange", () =>
@@ -54,6 +58,7 @@ export class Game {
 
         // Commit.
         sys_transform2d(this, delta);
+        sys_grid(this, delta);
 
         // Render.
         sys_draw2d(this, delta);

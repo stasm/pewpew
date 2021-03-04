@@ -1,6 +1,7 @@
 import {ControlMob} from "./components/com_control_mob.js";
 import {ControlSpawn} from "./components/com_control_spawn.js";
 import {Draw} from "./components/com_draw.js";
+import {Grid} from "./components/com_grid.js";
 import {Lifespan} from "./components/com_lifespan.js";
 import {Move} from "./components/com_move.js";
 import {Shake} from "./components/com_shake.js";
@@ -12,6 +13,7 @@ const enum Component {
     ControlSpawn,
     Draw,
     Lifespan,
+    Grid,
     Move,
     Shake,
     Transform2D,
@@ -22,6 +24,7 @@ export const enum Has {
     ControlSpawn = 1 << Component.ControlSpawn,
     Draw = 1 << Component.Draw,
     Lifespan = 1 << Component.Lifespan,
+    Grid = 1 << Component.Grid,
     Move = 1 << Component.Move,
     Shake = 1 << Component.Shake,
     Transform2D = 1 << Component.Transform2D,
@@ -36,6 +39,7 @@ export class World {
     ControlSpawn: Array<ControlSpawn> = [];
     Draw: Array<Draw> = [];
     Lifespan: Array<Lifespan> = [];
+    Grid: Array<Grid> = [];
     Move: Array<Move> = [];
     Shake: Array<Shake> = [];
     Transform2D: Array<Transform2D> = [];
