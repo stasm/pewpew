@@ -23,8 +23,6 @@ export function scene_stage(game: Game) {
 
     {
         // Create a 10x10 grid of cells.
-        let cell_width = game.ViewportWidth / 10;
-        let cell_height = game.ViewportHeight / 10;
 
         // 1. Create the cells.
         for (let y = 0; y < 10; y++) {
@@ -138,6 +136,6 @@ function turret_blueprint(game: Game): Blueprint2D {
 
 function bullet_blueprint(game: Game): Blueprint2D {
     return {
-        Using: [draw_rect(5, 5, "black"), move(100), lifespan(10), collide(2), damage(1)],
+        Using: [draw_rect(5, 5, "black"), move(100), lifespan(10), collide(3), damage(1), grid()],
     };
 }
