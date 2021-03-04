@@ -21,9 +21,6 @@ export class Game {
     ViewportWidth = 1000;
     ViewportHeight = 1000;
 
-    InputState: Record<string, number> = {};
-    InputDelta: Record<string, number> = {};
-
     Canvas = document.querySelector("canvas")!;
     Context2D = this.Canvas.getContext("2d")!;
 
@@ -36,12 +33,6 @@ export class Game {
 
         this.Canvas.width = this.ViewportWidth;
         this.Canvas.height = this.ViewportHeight;
-    }
-
-    FrameReset() {
-        for (let name in this.InputDelta) {
-            this.InputDelta[name] = 0;
-        }
     }
 
     FrameUpdate(delta: number) {
