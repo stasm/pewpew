@@ -19,16 +19,16 @@ export function sys_transform2d(game: Game, delta: number) {
 function update_transform(world: World, transform: Transform2D) {
     transform.Dirty = false;
 
-    from_translation(transform.World, transform.Translation);
-    rotate(transform.World, transform.World, transform.Rotation);
-    scale(transform.World, transform.World, transform.Scale);
+    from_translation(transform.WorldSpace, transform.Translation);
+    rotate(transform.WorldSpace, transform.WorldSpace, transform.Rotation);
+    scale(transform.WorldSpace, transform.WorldSpace, transform.Scale);
 
     if (transform.Parent !== undefined) {
-        let parent = world.Transform2D[transform.Parent].World;
-        multiply(transform.World, parent, transform.World);
+        let parent = world.Transform2D[transform.Parent].WorldSpace;
+        multiply(transform.WorldSpace, parent, transform.WorldSpace);
     }
 
-    invert(transform.Self, transform.World);
+    invert(transform.SelfSpace, transform.WorldSpace);
 
     for (let child of transform.Children) {
         let child_transform = world.Transform2D[child];

@@ -25,7 +25,7 @@ function check_collisions_in_cell(world: World, cell: GridCell) {
 
             // Prepare the collider for this tick.
             collider.Collisions = [];
-            get_translation(collider.Center, transform.World);
+            get_translation(collider.Center, transform.WorldSpace);
             all_colliders.push(collider);
         }
     }

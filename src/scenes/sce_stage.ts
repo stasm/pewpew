@@ -1,5 +1,6 @@
 import {set_seed} from "../../common/random.js";
 import {aim} from "../components/com_aim.js";
+import {camera} from "../components/com_camera.js";
 import {collide} from "../components/com_collide.js";
 import {control_mob, MobKind} from "../components/com_control_mob.js";
 import {control_spawn} from "../components/com_control_spawn.js";
@@ -58,6 +59,10 @@ export function scene_stage(game: Game) {
             }
         }
     }
+
+    instantiate(game, {
+        Using: [camera(), shake(0, 0)],
+    });
 
     for (let i = 1; i < 10; i++) {
         instantiate(game, {

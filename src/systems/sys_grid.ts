@@ -24,7 +24,7 @@ function update(game: Game, entity: Entity, delta: number) {
     let grid = game.World.Grid[entity];
 
     let world_position: Vec2 = [0, 0];
-    get_translation(world_position, transform.World);
+    get_translation(world_position, transform.WorldSpace);
 
     let cell_width = game.ViewportWidth / 10;
     let cell_height = game.ViewportHeight / 10;

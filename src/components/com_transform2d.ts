@@ -5,9 +5,11 @@ import {Has, World} from "../world.js";
 
 export interface Transform2D {
     /** Absolute matrix relative to the world. */
-    World: Mat2D;
+    WorldSpace: Mat2D;
     /** World to self matrix. */
-    Self: Mat2D;
+    SelfSpace: Mat2D;
+    /** Transformation matrix relative to the camera. */
+    CameraSpace: Mat2D;
     /** Local translation relative to the parent. */
     Translation: Vec2;
     /** Local rotation relative to the parent. */
@@ -23,8 +25,9 @@ export function transform2d(Translation: Vec2 = [0, 0], Rotation: Rad = 0, Scale
     return (game: Game, entity: Entity) => {
         game.World.Signature[entity] |= Has.Transform2D;
         game.World.Transform2D[entity] = {
-            World: create(),
-            Self: create(),
+            WorldSpace: create(),
+            SelfSpace: create(),
+            CameraSpace: create(),
             Translation,
             Rotation,
             Scale,

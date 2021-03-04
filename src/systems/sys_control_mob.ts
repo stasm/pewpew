@@ -14,7 +14,18 @@ export function sys_control_mob(game: Game, delta: number) {
 
 function update(game: Game, entity: Entity) {
     let control = game.World.ControlMob[entity];
+    let health = game.World.Health[entity];
     let transform = game.World.Transform2D[entity];
+
+    if (health.Amount <= 0) {
+        game.World.Signature[entity] &= ~(Has.Health | Has.Grid | Has.Collide | Has.Move);
+
+        transform.Rotation = Math.random() * Math.PI * 2;
+        transform.Dirty = true;
+
+        let draw = game.World.Draw[entity];
+        draw.Color = "silver";
+    }
 
     switch (control.Kind) {
         case MobKind.Light: {
@@ -22,21 +33,22 @@ function update(game: Game, entity: Entity) {
                 transform.Rotation += (Math.random() - 0.5) * 0.1;
                 transform.Dirty = true;
             }
+            if (health.Amount <= 0 && game.Camera) {
+                let shake = game.World.Shake[game.Camera.EntityId];
+                if (shake.Duration < 0.1) {
+                    shake.Duration = 0.2;
+                    shake.Magnitude = 2;
+                }
+            }
             break;
         }
         case MobKind.Heavy: {
+            if (health.Amount <= 0 && game.Camera) {
+                let shake = game.World.Shake[game.Camera.EntityId];
+                shake.Duration = 0.5;
+                shake.Magnitude = 10;
+            }
             break;
         }
-    }
-
-    let health = game.World.Health[entity];
-    if (health.Amount <= 0) {
-        game.World.Signature[entity] &= ~(Has.ControlMob | Has.Grid | Has.Collide | Has.Move);
-
-        transform.Rotation = Math.random() * Math.PI * 2;
-        transform.Dirty = true;
-
-        let draw = game.World.Draw[entity];
-        draw.Color = "silver";
     }
 }

@@ -23,7 +23,7 @@ function update(game: Game, entity: Entity) {
         let target_transform = game.World.Transform2D[aim.Target];
 
         let target_position: Vec2 = [0, 0];
-        get_translation(target_position, target_transform.World);
+        get_translation(target_position, target_transform.WorldSpace);
 
         let diff: Vec2 = [0, 0];
         subtract(diff, target_position, transform.Translation);

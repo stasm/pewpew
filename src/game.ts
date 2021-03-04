@@ -1,6 +1,8 @@
+import {Camera} from "./components/com_camera.js";
 import {GridCell} from "./components/com_grid.js";
 import {loop_start, loop_stop} from "./loop.js";
 import {sys_aim} from "./systems/sys_aim.js";
+import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
 import {sys_control_mob} from "./systems/sys_control_mob.js";
 import {sys_control_spawn} from "./systems/sys_control_spawn.js";
@@ -27,6 +29,7 @@ export class Game {
     Context2D = this.Canvas.getContext("2d")!;
 
     Grid: Array<Array<GridCell>> = [];
+    Camera?: Camera;
 
     constructor() {
         document.addEventListener("visibilitychange", () =>
@@ -60,6 +63,7 @@ export class Game {
         sys_damage(this, delta);
 
         // Render.
+        sys_camera(this, delta);
         sys_draw2d(this, delta);
         sys_framerate(this, delta, performance.now() - now);
     }

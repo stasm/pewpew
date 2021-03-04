@@ -24,9 +24,9 @@ function update(game: Game, entity: Entity, delta: number) {
         let transform = game.World.Transform2D[entity];
 
         let world_position: Vec2 = [0, 0];
-        get_translation(world_position, transform.World);
+        get_translation(world_position, transform.WorldSpace);
 
-        let world_rotation = get_rotation(transform.World);
+        let world_rotation = get_rotation(transform.WorldSpace);
 
         instantiate(game, {
             ...control.Creator(game),

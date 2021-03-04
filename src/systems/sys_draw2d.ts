@@ -1,3 +1,4 @@
+import {multiply} from "../../common/mat2d.js";
 import {DrawCircle, DrawKind, DrawRect} from "../components/com_draw.js";
 import {Game} from "../game.js";
 import {Has} from "../world.js";
@@ -9,16 +10,22 @@ export function sys_draw2d(game: Game, delta: number) {
     game.Context2D.fillStyle = "#e6e6e6";
     game.Context2D.fillRect(0, 0, game.ViewportWidth, game.ViewportHeight);
 
+    if (!game.Camera) {
+        return;
+    }
+
     for (let i = 0; i < game.World.Signature.length; i++) {
         if ((game.World.Signature[i] & QUERY) == QUERY) {
             let transform = game.World.Transform2D[i];
+            multiply(transform.CameraSpace, game.Camera.View, transform.WorldSpace);
+
             game.Context2D.setTransform(
-                transform.World[0],
-                transform.World[1],
-                transform.World[2],
-                transform.World[3],
-                transform.World[4],
-                transform.World[5]
+                transform.CameraSpace[0],
+                transform.CameraSpace[1],
+                transform.CameraSpace[2],
+                transform.CameraSpace[3],
+                transform.CameraSpace[4],
+                transform.CameraSpace[5]
             );
 
             let draw = game.World.Draw[i];
