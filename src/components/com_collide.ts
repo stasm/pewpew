@@ -9,7 +9,7 @@ export interface Collide {
     /** The world position of the center. */
     Center: Vec2;
     /** Other colliders colliding with this collider during this tick. */
-    Collisions: Array<Collide>;
+    Collisions: Array<Entity>;
 }
 
 export function collide(radius: number) {

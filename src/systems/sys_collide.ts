@@ -39,8 +39,8 @@ function check_collisions_between(collider: Collide, colliders: Collide[], offse
     for (let i = offset; i < colliders.length; i++) {
         let other = colliders[i];
         if (other !== collider && intersect(collider, other)) {
-            collider.Collisions.push(other);
-            other.Collisions.push(collider);
+            collider.Collisions.push(other.EntityId);
+            other.Collisions.push(collider.EntityId);
         }
     }
 }

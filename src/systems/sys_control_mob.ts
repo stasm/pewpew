@@ -3,7 +3,7 @@ import {MobKind} from "../components/com_control_mob.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
-const QUERY = Has.ControlMob;
+const QUERY = Has.ControlMob | Has.Health;
 
 export function sys_control_mob(game: Game, delta: number) {
     for (let i = 0; i < game.World.Signature.length; i++) {
