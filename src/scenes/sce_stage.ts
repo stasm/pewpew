@@ -101,6 +101,18 @@ function mob_light_blueprint(game: Game): Blueprint2D {
 function turret_blueprint(game: Game): Blueprint2D {
     return {
         Rotation: -Math.PI / 2,
-        Using: [draw_circle(10, "yellow"), grid(), control_turret(), aim()],
+        Using: [
+            draw_circle(10, "yellow"),
+            grid(),
+            control_turret(),
+            aim(),
+            control_spawn(bullet_blueprint, 1),
+        ],
+    };
+}
+
+function bullet_blueprint(game: Game): Blueprint2D {
+    return {
+        Using: [draw_rect(5, 5, "black"), move(100), lifespan(10)],
     };
 }
