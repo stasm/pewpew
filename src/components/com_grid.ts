@@ -16,7 +16,7 @@ export function grid() {
 }
 
 export interface GridCell {
-    Position: Vec2;
+    Index: Vec2;
     Neighbors: Array<GridCell>;
     Occupants: Set<Entity>;
 }

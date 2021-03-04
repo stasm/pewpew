@@ -1,5 +1,6 @@
 import {ControlMob} from "./components/com_control_mob.js";
 import {ControlSpawn} from "./components/com_control_spawn.js";
+import {ControlTurret} from "./components/com_control_turret.js";
 import {Draw} from "./components/com_draw.js";
 import {Grid} from "./components/com_grid.js";
 import {Lifespan} from "./components/com_lifespan.js";
@@ -11,6 +12,7 @@ import {Entity} from "./game.js";
 const enum Component {
     ControlMob,
     ControlSpawn,
+    ControlTurret,
     Draw,
     Lifespan,
     Grid,
@@ -22,6 +24,7 @@ const enum Component {
 export const enum Has {
     ControlMob = 1 << Component.ControlMob,
     ControlSpawn = 1 << Component.ControlSpawn,
+    ControlTurret = 1 << Component.ControlTurret,
     Draw = 1 << Component.Draw,
     Lifespan = 1 << Component.Lifespan,
     Grid = 1 << Component.Grid,
@@ -37,6 +40,7 @@ export class World {
     // Component data
     ControlMob: Array<ControlMob> = [];
     ControlSpawn: Array<ControlSpawn> = [];
+    ControlTurret: Array<ControlTurret> = [];
     Draw: Array<Draw> = [];
     Lifespan: Array<Lifespan> = [];
     Grid: Array<Grid> = [];
