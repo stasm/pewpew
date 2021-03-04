@@ -1,4 +1,3 @@
-import {float} from "../../common/random.js";
 import {MobKind} from "../components/com_control_mob.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
@@ -15,9 +14,16 @@ export function sys_control_mob(game: Game, delta: number) {
 
 function update(game: Game, entity: Entity) {
     let control = game.World.ControlMob[entity];
+    let transform = game.World.Transform2D[entity];
+
     switch (control.Kind) {
-        case MobKind.Light:
+        case MobKind.Light: {
+            if (Math.random() < 0.1) {
+                transform.Rotation += (Math.random() - 0.5) * 0.1;
+                transform.Dirty = true;
+            }
             break;
+        }
         case MobKind.Heavy: {
             break;
         }
@@ -27,8 +33,7 @@ function update(game: Game, entity: Entity) {
     if (health.Amount <= 0) {
         game.World.Signature[entity] &= ~(Has.ControlMob | Has.Grid | Has.Collide | Has.Move);
 
-        let transform = game.World.Transform2D[entity];
-        transform.Rotation = float(0, Math.PI * 2);
+        transform.Rotation = Math.random() * Math.PI * 2;
         transform.Dirty = true;
 
         let draw = game.World.Draw[entity];
