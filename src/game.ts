@@ -97,14 +97,6 @@ export class Game {
         this.FrameStats.EntityCreate = 0;
         this.FrameStats.EntityDestroy = 0;
         this.FrameStats.SignatureChange = 0;
-
-        console.log({
-            Ticks: this.TotalStats.Ticks,
-            EntityCount: this.TotalStats.EntityCount / this.TotalStats.Ticks,
-            EntityCreate: this.TotalStats.EntityCreate / this.TotalStats.Ticks,
-            EntityDestroy: this.TotalStats.EntityDestroy / this.TotalStats.Ticks,
-            SignatureChange: this.TotalStats.SignatureChange / this.TotalStats.Ticks,
-        });
     }
 }
 
