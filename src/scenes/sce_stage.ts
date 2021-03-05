@@ -129,7 +129,7 @@ function turret_blueprint(game: Game): Blueprint2D {
     return {
         Rotation: -Math.PI / 2,
         Using: [
-            draw_circle(10, "yellow"),
+            draw_circle(10, "gold"),
             grid(),
             control_turret(),
             aim(),
