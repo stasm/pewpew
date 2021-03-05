@@ -12,6 +12,7 @@ import {health} from "../components/com_health.js";
 import {lifespan} from "../components/com_lifespan.js";
 import {move} from "../components/com_move.js";
 import {shake} from "../components/com_shake.js";
+import {MOB_HEAVY_SPAWN_FREQUENCY, MOB_LIGHT_SPAWN_FREQUENCY, TURRET_COUNT} from "../config.js";
 import {Blueprint2D, instantiate} from "../entity.js";
 import {Game} from "../game.js";
 import {sys_grid} from "../systems/sys_grid.js";
@@ -64,9 +65,9 @@ export function scene_stage(game: Game) {
         Using: [camera(), shake(0, 0)],
     });
 
-    for (let i = 1; i < 10; i++) {
+    for (let i = 1; i < TURRET_COUNT; i++) {
         instantiate(game, {
-            Translation: [game.ViewportWidth * 0.1 * i, game.ViewportHeight * 0.9],
+            Translation: [(game.ViewportWidth * i) / TURRET_COUNT, game.ViewportHeight * 0.9],
             ...turret_blueprint(game),
         });
     }
@@ -77,10 +78,16 @@ export function scene_stage(game: Game) {
         Scale: [1, 5],
         Children: [
             {
-                Using: [control_spawn(mob_light_blueprint, 0.1, 0.3), shake(Infinity, 100)],
+                Using: [
+                    control_spawn(mob_light_blueprint, MOB_LIGHT_SPAWN_FREQUENCY, 0.3),
+                    shake(Infinity, 100),
+                ],
             },
             {
-                Using: [control_spawn(mob_heavy_blueprint, 5, 0.5), shake(Infinity, 100)],
+                Using: [
+                    control_spawn(mob_heavy_blueprint, MOB_HEAVY_SPAWN_FREQUENCY, 0.5),
+                    shake(Infinity, 100),
+                ],
             },
         ],
     });
