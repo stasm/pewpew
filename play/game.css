@@ -2,11 +2,12 @@ html,
 body {
     overflow: hidden;
     margin: 0;
-}
-canvas,
-main {
-    position: absolute;
-    width: 100vw;
+    display: grid;
+    place-items: center;
     height: 100vh;
+}
+canvas {
+    width: 1000px;
+    height: 1000px;
     user-select: none;
 }
