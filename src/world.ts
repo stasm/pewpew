@@ -3,7 +3,6 @@ import {Camera} from "./components/com_camera.js";
 import {Collide} from "./components/com_collide.js";
 import {ControlMob} from "./components/com_control_mob.js";
 import {ControlSpawn} from "./components/com_control_spawn.js";
-import {ControlTurret} from "./components/com_control_turret.js";
 import {Damage} from "./components/com_damage.js";
 import {Draw} from "./components/com_draw.js";
 import {Grid} from "./components/com_grid.js";
@@ -58,7 +57,6 @@ export class World {
     Collide: Array<Collide> = [];
     ControlMob: Array<ControlMob> = [];
     ControlSpawn: Array<ControlSpawn> = [];
-    ControlTurret: Array<ControlTurret> = [];
     Damage: Array<Damage> = [];
     Draw: Array<Draw> = [];
     Lifespan: Array<Lifespan> = [];
