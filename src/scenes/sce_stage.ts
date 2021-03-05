@@ -12,7 +12,14 @@ import {health} from "../components/com_health.js";
 import {lifespan} from "../components/com_lifespan.js";
 import {move} from "../components/com_move.js";
 import {shake} from "../components/com_shake.js";
-import {MOB_HEAVY_SPAWN_FREQUENCY, MOB_LIGHT_SPAWN_FREQUENCY, TURRET_COUNT} from "../config.js";
+import {
+    MOB_HEAVY_LIFESPAN,
+    MOB_HEAVY_SPAWN_FREQUENCY,
+    MOB_LIGHT_LIFESPAN,
+    MOB_LIGHT_SPAWN_FREQUENCY,
+    TURRET_COUNT,
+    TURRET_SHOOT_FREQUENCY,
+} from "../config.js";
 import {Blueprint2D, instantiate} from "../entity.js";
 import {Game} from "../game.js";
 import {sys_grid} from "../systems/sys_grid.js";
@@ -65,9 +72,9 @@ export function scene_stage(game: Game) {
         Using: [camera(), shake(0, 0)],
     });
 
-    for (let i = 1; i < TURRET_COUNT; i++) {
+    for (let i = 1; i < TURRET_COUNT + 1; i++) {
         instantiate(game, {
-            Translation: [(game.ViewportWidth * i) / TURRET_COUNT, game.ViewportHeight * 0.9],
+            Translation: [(game.ViewportWidth * i) / (TURRET_COUNT + 1), game.ViewportHeight * 0.9],
             ...turret_blueprint(game),
         });
     }
@@ -103,7 +110,7 @@ function mob_light_blueprint(game: Game): Blueprint2D {
             draw_circle(10, "red"),
             move(40),
             control_mob(MobKind.Light),
-            lifespan(20),
+            lifespan(MOB_LIGHT_LIFESPAN),
             grid(),
             collide(10),
             health(1),
@@ -117,7 +124,7 @@ function mob_heavy_blueprint(game: Game): Blueprint2D {
             draw_circle(20, "dodgerblue"),
             move(20),
             control_mob(MobKind.Heavy),
-            lifespan(40),
+            lifespan(MOB_HEAVY_LIFESPAN),
             grid(),
             collide(20),
             health(5),
@@ -133,7 +140,7 @@ function turret_blueprint(game: Game): Blueprint2D {
             grid(),
             control_turret(),
             aim(),
-            control_spawn(bullet_blueprint, 0.3, 0.1),
+            control_spawn(bullet_blueprint, TURRET_SHOOT_FREQUENCY, 0.1),
         ],
     };
 }
