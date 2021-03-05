@@ -17,6 +17,6 @@ function update(game: Game, entity: Entity, delta: number) {
 
     lifespan.Remaining -= delta;
     if (lifespan.Remaining < 0) {
-        setTimeout(() => destroy(game.World, entity));
+        setTimeout(() => destroy(game, entity));
     }
 }

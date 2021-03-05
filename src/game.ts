@@ -1,6 +1,5 @@
 import {Camera} from "./components/com_camera.js";
 import {GridCell} from "./components/com_grid.js";
-import {loop_start, loop_stop} from "./loop.js";
 import {sys_aim} from "./systems/sys_aim.js";
 import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
@@ -31,11 +30,22 @@ export class Game {
     Grid: Array<Array<GridCell>> = [];
     Camera?: Camera;
 
-    constructor() {
-        document.addEventListener("visibilitychange", () =>
-            document.hidden ? loop_stop() : loop_start(this)
-        );
+    FrameStats: Stats = {
+        Ticks: 0,
+        EntityCount: 0,
+        EntityCreate: 0,
+        EntityDestroy: 0,
+        SignatureChange: 0,
+    };
+    TotalStats: Stats = {
+        Ticks: 0,
+        EntityCount: 0,
+        EntityCreate: 0,
+        EntityDestroy: 0,
+        SignatureChange: 0,
+    };
 
+    constructor() {
         this.Canvas.width = this.ViewportWidth;
         this.Canvas.height = this.ViewportHeight;
     }
@@ -67,4 +77,33 @@ export class Game {
         sys_draw2d(this, delta);
         sys_framerate(this, delta, performance.now() - now);
     }
+
+    FrameReset() {
+        this.TotalStats.Ticks++;
+        this.TotalStats.EntityCount += this.FrameStats.EntityCount;
+        this.TotalStats.EntityCreate += this.FrameStats.EntityCreate;
+        this.TotalStats.EntityDestroy += this.FrameStats.EntityDestroy;
+        this.TotalStats.SignatureChange += this.FrameStats.SignatureChange;
+
+        this.FrameStats.EntityCount = 0;
+        this.FrameStats.EntityCreate = 0;
+        this.FrameStats.EntityDestroy = 0;
+        this.FrameStats.SignatureChange = 0;
+
+        console.log({
+            Ticks: this.TotalStats.Ticks,
+            EntityCount: this.TotalStats.EntityCount / this.TotalStats.Ticks,
+            EntityCreate: this.TotalStats.EntityCreate / this.TotalStats.Ticks,
+            EntityDestroy: this.TotalStats.EntityDestroy / this.TotalStats.Ticks,
+            SignatureChange: this.TotalStats.SignatureChange / this.TotalStats.Ticks,
+        });
+    }
+}
+
+interface Stats {
+    Ticks: number;
+    EntityCount: number;
+    EntityCreate: number;
+    EntityDestroy: number;
+    SignatureChange: number;
 }

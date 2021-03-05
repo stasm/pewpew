@@ -8,6 +8,8 @@ const QUERY = Has.Transform2D;
 export function sys_transform2d(game: Game, delta: number) {
     for (let i = 0; i < game.World.Signature.length; i++) {
         if ((game.World.Signature[i] & QUERY) === QUERY) {
+            game.FrameStats.EntityCount++;
+
             let transform = game.World.Transform2D[i];
             if (transform.Dirty) {
                 update_transform(game.World, transform);

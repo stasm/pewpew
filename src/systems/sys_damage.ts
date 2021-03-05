@@ -17,7 +17,7 @@ function update(game: Game, entity: Entity) {
     let damage = game.World.Damage[entity];
 
     if (collide.Collisions.length > 0) {
-        setTimeout(() => destroy(game.World, entity));
+        setTimeout(() => destroy(game, entity));
     }
 
     for (let other of collide.Collisions) {
@@ -25,7 +25,7 @@ function update(game: Game, entity: Entity) {
             let health = game.World.Health[other];
             health.Amount -= damage.Amount;
         } else {
-            setTimeout(() => destroy(game.World, other));
+            setTimeout(() => destroy(game, other));
         }
     }
 }

@@ -18,6 +18,7 @@ function update(game: Game, entity: Entity) {
     let transform = game.World.Transform2D[entity];
 
     if (health.Amount <= 0) {
+        game.FrameStats.SignatureChange++;
         game.World.Signature[entity] &= ~(Has.Health | Has.Grid | Has.Collide | Has.Move);
 
         transform.Rotation = Math.random() * Math.PI * 2;
