@@ -1,4 +1,3 @@
-import {destroy} from "../entity.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
@@ -17,14 +16,14 @@ function update(game: Game, entity: Entity) {
     let damage = game.World.Damage[entity];
 
     if (collide.Collisions.length > 0) {
-        setTimeout(() => destroy(game, entity));
+        game.Morgue.push(entity);
 
         let other = collide.Collisions[0];
         if (game.World.Signature[other] & Has.Health) {
             let health = game.World.Health[other];
             health.Amount -= damage.Amount;
         } else {
-            setTimeout(() => destroy(game, other));
+            game.Morgue.push(entity);
         }
     }
 }

@@ -1,4 +1,3 @@
-import {destroy} from "../entity.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
@@ -17,6 +16,6 @@ function update(game: Game, entity: Entity, delta: number) {
 
     lifespan.Remaining -= delta;
     if (lifespan.Remaining < 0) {
-        setTimeout(() => destroy(game, entity));
+        game.Morgue.push(entity);
     }
 }

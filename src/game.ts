@@ -1,5 +1,6 @@
 import {Camera} from "./components/com_camera.js";
 import {GridCell} from "./components/com_grid.js";
+import {destroy} from "./entity.js";
 import {sys_aim} from "./systems/sys_aim.js";
 import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
@@ -20,6 +21,7 @@ export type Entity = number;
 
 export class Game {
     World = new World();
+    Morgue: Array<Entity> = [];
 
     ViewportWidth = 1000;
     ViewportHeight = 1000;
@@ -75,6 +77,12 @@ export class Game {
         // Render.
         sys_camera(this, delta);
         sys_draw2d(this, delta);
+
+        for (let i = 0; i < this.Morgue.length; i++) {
+            destroy(this, this.Morgue[i]);
+        }
+        this.Morgue = [];
+
         sys_framerate(this, delta, performance.now() - now);
     }
 
