@@ -2,24 +2,19 @@ import {Blueprint, instantiate} from "../entity.js";
 import {Entity, Game} from "../game.js";
 import {Has, World} from "../world.js";
 
-export interface Hierarchy {
-    Parent?: Entity;
+export interface Children {
     Children: Array<Entity>;
 }
 
-export function hierarchy(...blueprints: Array<Blueprint>) {
+export function children(...blueprints: Array<Blueprint>) {
     return (game: Game, entity: Entity) => {
         let child_entities = [];
         for (let blueprint of blueprints) {
             let child = instantiate(game, blueprint);
             child_entities.push(child);
-
-            if (game.World.Signature[child] & Has.Hierarchy) {
-                game.World.Hierarchy[child].Parent = entity;
-            }
         }
-        game.World.Signature[entity] |= Has.Hierarchy;
-        game.World.Hierarchy[entity] = {
+        game.World.Signature[entity] |= Has.Children;
+        game.World.Children[entity] = {
             Children: child_entities,
         };
     };
@@ -37,7 +32,7 @@ export function* query_all(world: World, parent: Entity, mask: Has): IterableIte
     if (world.Signature[parent] & mask) {
         yield parent;
     }
-    for (let child of world.Hierarchy[parent].Children) {
+    for (let child of world.Children[parent].Children) {
         yield* query_all(world, child, mask);
     }
 }

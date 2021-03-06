@@ -1,6 +1,7 @@
 import {set_seed} from "../../common/random.js";
 import {aim} from "../components/com_aim.js";
 import {camera} from "../components/com_camera.js";
+import {children} from "../components/com_children.js";
 import {collide} from "../components/com_collide.js";
 import {control_mob, MobKind} from "../components/com_control_mob.js";
 import {control_spawn} from "../components/com_control_spawn.js";
@@ -9,7 +10,6 @@ import {damage} from "../components/com_damage.js";
 import {draw_circle, draw_rect} from "../components/com_draw.js";
 import {grid} from "../components/com_grid.js";
 import {health} from "../components/com_health.js";
-import {hierarchy} from "../components/com_hierarchy.js";
 import {lifespan} from "../components/com_lifespan.js";
 import {move} from "../components/com_move.js";
 import {shake} from "../components/com_shake.js";
@@ -84,16 +84,14 @@ export function scene_stage(game: Game) {
 
     instantiate(game, [
         transform2d([game.ViewportWidth / 2, game.ViewportHeight / 10], Math.PI / 2, [1, 5]),
-        hierarchy(
+        children(
             [
                 transform2d(),
-                hierarchy(),
                 control_spawn(mob_light_blueprint, MOB_LIGHT_SPAWN_FREQUENCY, 0.3),
                 shake(Infinity, 100),
             ],
             [
                 transform2d(),
-                hierarchy(),
                 control_spawn(mob_heavy_blueprint, MOB_HEAVY_SPAWN_FREQUENCY, 0.5),
                 shake(Infinity, 100),
             ]

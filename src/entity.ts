@@ -15,8 +15,8 @@ export function instantiate(game: Game, blueprint: Blueprint) {
 }
 
 export function destroy(game: Game, entity: Entity) {
-    if (game.World.Signature[entity] & Has.Hierarchy) {
-        for (let child of game.World.Hierarchy[entity].Children) {
+    if (game.World.Signature[entity] & Has.Children) {
+        for (let child of game.World.Children[entity].Children) {
             destroy(game, child);
         }
     }

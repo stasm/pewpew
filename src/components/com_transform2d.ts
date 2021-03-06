@@ -16,6 +16,7 @@ export interface Transform2D {
     Rotation: Rad;
     /** Local scale relative to the parent. */
     Scale: Vec2;
+    Parent?: Entity;
     Dirty: boolean;
 }
 

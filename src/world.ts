@@ -1,5 +1,6 @@
 import {Aim} from "./components/com_aim.js";
 import {Camera} from "./components/com_camera.js";
+import {Children} from "./components/com_children.js";
 import {Collide} from "./components/com_collide.js";
 import {ControlMob} from "./components/com_control_mob.js";
 import {ControlSpawn} from "./components/com_control_spawn.js";
@@ -7,7 +8,6 @@ import {Damage} from "./components/com_damage.js";
 import {Draw} from "./components/com_draw.js";
 import {Grid} from "./components/com_grid.js";
 import {Health} from "./components/com_health.js";
-import {Hierarchy} from "./components/com_hierarchy.js";
 import {Lifespan} from "./components/com_lifespan.js";
 import {Move} from "./components/com_move.js";
 import {Shake} from "./components/com_shake.js";
@@ -17,7 +17,7 @@ import {Entity} from "./game.js";
 const enum Component {
     Aim,
     Camera,
-    Hierarchy,
+    Children,
     Collide,
     ControlMob,
     ControlSpawn,
@@ -35,7 +35,7 @@ const enum Component {
 export const enum Has {
     Aim = 1 << Component.Aim,
     Camera = 1 << Component.Camera,
-    Hierarchy = 1 << Component.Hierarchy,
+    Children = 1 << Component.Children,
     Collide = 1 << Component.Collide,
     ControlMob = 1 << Component.ControlMob,
     ControlSpawn = 1 << Component.ControlSpawn,
@@ -57,7 +57,7 @@ export class World {
     // Component data
     Aim: Array<Aim> = [];
     Camera: Array<Camera> = [];
-    Hierarchy: Array<Hierarchy> = [];
+    Children: Array<Children> = [];
     Collide: Array<Collide> = [];
     ControlMob: Array<ControlMob> = [];
     ControlSpawn: Array<ControlSpawn> = [];
