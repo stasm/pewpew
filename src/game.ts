@@ -35,6 +35,7 @@ export class Game {
 
     FrameStats: Stats = {
         Ticks: 0,
+        UpdateTime: 0,
         EntityCount: 0,
         EntityCreate: 0,
         EntityDestroy: 0,
@@ -42,6 +43,7 @@ export class Game {
     };
     TotalStats: Stats = {
         Ticks: 0,
+        UpdateTime: 0,
         EntityCount: 0,
         EntityCreate: 0,
         EntityDestroy: 0,
@@ -85,16 +87,19 @@ export class Game {
         }
         this.Morgue.clear();
 
-        sys_framerate(this, delta, performance.now() - now);
+        this.FrameStats.UpdateTime = performance.now() - now;
+        sys_framerate(this, delta, this.FrameStats.UpdateTime);
     }
 
     FrameReset() {
         this.TotalStats.Ticks++;
+        this.TotalStats.UpdateTime += this.FrameStats.UpdateTime;
         this.TotalStats.EntityCount += this.FrameStats.EntityCount;
         this.TotalStats.EntityCreate += this.FrameStats.EntityCreate;
         this.TotalStats.EntityDestroy += this.FrameStats.EntityDestroy;
         this.TotalStats.SignatureChange += this.FrameStats.SignatureChange;
 
+        this.FrameStats.UpdateTime = 0;
         this.FrameStats.EntityCount = 0;
         this.FrameStats.EntityCreate = 0;
         this.FrameStats.EntityDestroy = 0;
@@ -104,6 +109,7 @@ export class Game {
 
 interface Stats {
     Ticks: number;
+    UpdateTime: number;
     EntityCount: number;
     EntityCreate: number;
     EntityDestroy: number;

@@ -12,6 +12,7 @@ loop_start(game);
 setInterval(() => {
     console.log({
         Ticks: game.TotalStats.Ticks,
+        UpdateTime: game.TotalStats.UpdateTime / game.TotalStats.Ticks,
         EntityCount: game.TotalStats.EntityCount / game.TotalStats.Ticks,
         EntityCreate: game.TotalStats.EntityCreate / game.TotalStats.Ticks,
         EntityDestroy: game.TotalStats.EntityDestroy / game.TotalStats.Ticks,
