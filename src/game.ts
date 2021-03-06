@@ -21,7 +21,7 @@ export type Entity = number;
 
 export class Game {
     World = new World();
-    Morgue: Array<Entity> = [];
+    Morgue: Set<Entity> = new Set();
 
     ViewportWidth = 1000;
     ViewportHeight = 1000;
@@ -78,10 +78,10 @@ export class Game {
         sys_camera(this, delta);
         sys_draw2d(this, delta);
 
-        for (let i = 0; i < this.Morgue.length; i++) {
-            destroy(this, this.Morgue[i]);
+        for (let entity of this.Morgue) {
+            destroy(this, entity);
         }
-        this.Morgue = [];
+        this.Morgue.clear();
 
         sys_framerate(this, delta, performance.now() - now);
     }

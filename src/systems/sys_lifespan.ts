@@ -16,6 +16,6 @@ function update(game: Game, entity: Entity, delta: number) {
 
     lifespan.Remaining -= delta;
     if (lifespan.Remaining < 0) {
-        game.Morgue.push(entity);
+        game.Morgue.add(entity);
     }
 }

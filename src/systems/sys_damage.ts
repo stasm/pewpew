@@ -16,14 +16,14 @@ function update(game: Game, entity: Entity) {
     let damage = game.World.Damage[entity];
 
     if (collide.Collisions.length > 0) {
-        game.Morgue.push(entity);
+        game.Morgue.add(entity);
 
         let other = collide.Collisions[0];
         if (game.World.Signature[other] & Has.Health) {
             let health = game.World.Health[other];
             health.Amount -= damage.Amount;
         } else {
-            game.Morgue.push(entity);
+            game.Morgue.add(entity);
         }
     }
 }
