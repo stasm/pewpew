@@ -5,9 +5,9 @@ import {instantiate} from "../entity.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
-const QUERY = Has.Transform2D | Has.ControlSpawn;
+const QUERY = Has.Transform2D | Has.Spawn;
 
-export function sys_control_spawn(game: Game, delta: number) {
+export function sys_spawn(game: Game, delta: number) {
     for (let i = 0; i < game.World.Signature.length; i++) {
         if ((game.World.Signature[i] & QUERY) == QUERY) {
             update(game, i, delta);
@@ -16,7 +16,7 @@ export function sys_control_spawn(game: Game, delta: number) {
 }
 
 function update(game: Game, entity: Entity, delta: number) {
-    let control = game.World.ControlSpawn[entity];
+    let control = game.World.Spawn[entity];
 
     control.SinceLast += delta;
     if (control.SinceLast > control.Frequency) {

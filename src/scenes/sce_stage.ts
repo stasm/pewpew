@@ -5,7 +5,7 @@ import {children} from "../components/com_children.js";
 import {collide} from "../components/com_collide.js";
 import {control_always} from "../components/com_control_always.js";
 import {control_mob, MobKind} from "../components/com_control_mob.js";
-import {control_spawn} from "../components/com_control_spawn.js";
+import {spawn} from "../components/com_control_spawn.js";
 import {control_turret} from "../components/com_control_turret.js";
 import {damage} from "../components/com_damage.js";
 import {draw_circle, draw_rect} from "../components/com_draw.js";
@@ -88,12 +88,12 @@ export function scene_stage(game: Game) {
         children(
             [
                 transform2d(),
-                control_spawn(mob_light_blueprint, MOB_LIGHT_SPAWN_FREQUENCY, 0.3),
+                spawn(mob_light_blueprint, MOB_LIGHT_SPAWN_FREQUENCY, 0.3),
                 shake(Infinity, 100),
             ],
             [
                 transform2d(),
-                control_spawn(mob_heavy_blueprint, MOB_HEAVY_SPAWN_FREQUENCY, 0.5),
+                spawn(mob_heavy_blueprint, MOB_HEAVY_SPAWN_FREQUENCY, 0.5),
                 shake(Infinity, 100),
             ]
         ),
@@ -150,7 +150,7 @@ function turret_blueprint(game: Game): Blueprint {
         grid(),
         control_turret(),
         aim(),
-        control_spawn(bullet_blueprint, TURRET_SHOOT_FREQUENCY, 0.1),
+        spawn(bullet_blueprint, TURRET_SHOOT_FREQUENCY, 0.1),
     ];
 }
 

@@ -6,7 +6,7 @@ interface Creator {
     (game: Game): Blueprint;
 }
 
-export interface ControlSpawn {
+export interface Spawn {
     Creator: Creator;
     Frequency: number;
     Scatter: number;
@@ -20,10 +20,10 @@ export interface ControlSpawn {
  * @param frequency The average frequency of spawning.
  * @param scatter The amount of directional scattering of spawning, in Rad.
  */
-export function control_spawn(creator: Creator, frequency: number, scatter: number) {
+export function spawn(creator: Creator, frequency: number, scatter: number) {
     return (game: Game, entity: Entity) => {
-        game.World.Signature[entity] |= Has.ControlSpawn;
-        game.World.ControlSpawn[entity] = {
+        game.World.Signature[entity] |= Has.Spawn;
+        game.World.Spawn[entity] = {
             Creator: creator,
             Frequency: frequency,
             Scatter: scatter * 2,

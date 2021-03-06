@@ -4,7 +4,7 @@ import {Children} from "./components/com_children.js";
 import {Collide} from "./components/com_collide.js";
 import {ControlAlways} from "./components/com_control_always.js";
 import {ControlMob} from "./components/com_control_mob.js";
-import {ControlSpawn} from "./components/com_control_spawn.js";
+import {Spawn} from "./components/com_control_spawn.js";
 import {Damage} from "./components/com_damage.js";
 import {Draw} from "./components/com_draw.js";
 import {Grid} from "./components/com_grid.js";
@@ -22,7 +22,6 @@ const enum Component {
     Collide,
     ControlAlways,
     ControlMob,
-    ControlSpawn,
     ControlTurret,
     Damage,
     Draw,
@@ -31,6 +30,7 @@ const enum Component {
     Health,
     Move,
     Shake,
+    Spawn,
     Transform2D,
 }
 
@@ -41,7 +41,6 @@ export const enum Has {
     Collide = 1 << Component.Collide,
     ControlAlways = 1 << Component.ControlAlways,
     ControlMob = 1 << Component.ControlMob,
-    ControlSpawn = 1 << Component.ControlSpawn,
     ControlTurret = 1 << Component.ControlTurret,
     Damage = 1 << Component.Damage,
     Draw = 1 << Component.Draw,
@@ -50,6 +49,7 @@ export const enum Has {
     Health = 1 << Component.Health,
     Move = 1 << Component.Move,
     Shake = 1 << Component.Shake,
+    Spawn = 1 << Component.Spawn,
     Transform2D = 1 << Component.Transform2D,
 }
 
@@ -64,7 +64,7 @@ export class World {
     Collide: Array<Collide> = [];
     ControlAlways: Array<ControlAlways> = [];
     ControlMob: Array<ControlMob> = [];
-    ControlSpawn: Array<ControlSpawn> = [];
+    Spawn: Array<Spawn> = [];
     Damage: Array<Damage> = [];
     Draw: Array<Draw> = [];
     Lifespan: Array<Lifespan> = [];
