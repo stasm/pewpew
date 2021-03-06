@@ -129,6 +129,17 @@ function mob_heavy_blueprint(game: Game): Blueprint {
         grid(),
         collide(20),
         health(5),
+        children([
+            transform2d(),
+            move(0),
+            control_always(false, 1),
+            children(
+                [transform2d([25, 0]), draw_rect(5, 10, "black")],
+                [transform2d([0, 25]), draw_rect(10, 5, "black")],
+                [transform2d([-25, 0]), draw_rect(5, 10, "black")],
+                [transform2d([0, -25]), draw_rect(10, 5, "black")]
+            ),
+        ]),
     ];
 }
 
