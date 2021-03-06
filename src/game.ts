@@ -1,3 +1,4 @@
+import {FakeCanvas} from "./canvas.js";
 import {Camera} from "./components/com_camera.js";
 import {GridCell} from "./components/com_grid.js";
 import {destroy} from "./entity.js";
@@ -27,7 +28,7 @@ export class Game {
     ViewportWidth = 1000;
     ViewportHeight = 1000;
 
-    Canvas = document.querySelector("canvas")!;
+    Canvas = true ? document.querySelector("canvas")! : new FakeCanvas();
     Context2D = this.Canvas.getContext("2d")!;
 
     Grid: Array<Array<GridCell>> = [];
