@@ -1,8 +1,14 @@
+import {Rad, Vec2} from "../../common/math.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
 export interface Move {
+    /** Movement speed, in pixels per second. */
     Speed: number;
+    /** Movement direction, in world space. */
+    Direction: Vec2 | null;
+    /** Rotation angle, in Rad. */
+    Rotation: Rad;
 }
 
 export function move(Speed: number) {
@@ -10,6 +16,8 @@ export function move(Speed: number) {
         game.World.Signature[entity] |= Has.Move;
         game.World.Move[entity] = {
             Speed,
+            Direction: null,
+            Rotation: 0,
         };
     };
 }

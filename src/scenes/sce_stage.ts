@@ -3,6 +3,7 @@ import {aim} from "../components/com_aim.js";
 import {camera} from "../components/com_camera.js";
 import {children} from "../components/com_children.js";
 import {collide} from "../components/com_collide.js";
+import {control_always} from "../components/com_control_always.js";
 import {control_mob, MobKind} from "../components/com_control_mob.js";
 import {control_spawn} from "../components/com_control_spawn.js";
 import {control_turret} from "../components/com_control_turret.js";
@@ -109,6 +110,7 @@ function mob_light_blueprint(game: Game): Blueprint {
         draw_circle(10, "red"),
         move(40),
         control_mob(MobKind.Light),
+        control_always(true, 0),
         lifespan(MOB_LIGHT_LIFESPAN),
         grid(),
         collide(10),
@@ -122,6 +124,7 @@ function mob_heavy_blueprint(game: Game): Blueprint {
         draw_circle(20, "dodgerblue"),
         move(20),
         control_mob(MobKind.Heavy),
+        control_always(true, 0),
         lifespan(MOB_HEAVY_LIFESPAN),
         grid(),
         collide(20),
@@ -145,6 +148,7 @@ function bullet_blueprint(game: Game): Blueprint {
         transform2d(),
         draw_rect(5, 5, "black"),
         move(100),
+        control_always(true, 0),
         lifespan(10),
         collide(5),
         damage(1),

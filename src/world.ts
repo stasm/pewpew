@@ -2,6 +2,7 @@ import {Aim} from "./components/com_aim.js";
 import {Camera} from "./components/com_camera.js";
 import {Children} from "./components/com_children.js";
 import {Collide} from "./components/com_collide.js";
+import {ControlAlways} from "./components/com_control_always.js";
 import {ControlMob} from "./components/com_control_mob.js";
 import {ControlSpawn} from "./components/com_control_spawn.js";
 import {Damage} from "./components/com_damage.js";
@@ -19,6 +20,7 @@ const enum Component {
     Camera,
     Children,
     Collide,
+    ControlAlways,
     ControlMob,
     ControlSpawn,
     ControlTurret,
@@ -37,6 +39,7 @@ export const enum Has {
     Camera = 1 << Component.Camera,
     Children = 1 << Component.Children,
     Collide = 1 << Component.Collide,
+    ControlAlways = 1 << Component.ControlAlways,
     ControlMob = 1 << Component.ControlMob,
     ControlSpawn = 1 << Component.ControlSpawn,
     ControlTurret = 1 << Component.ControlTurret,
@@ -59,6 +62,7 @@ export class World {
     Camera: Array<Camera> = [];
     Children: Array<Children> = [];
     Collide: Array<Collide> = [];
+    ControlAlways: Array<ControlAlways> = [];
     ControlMob: Array<ControlMob> = [];
     ControlSpawn: Array<ControlSpawn> = [];
     Damage: Array<Damage> = [];

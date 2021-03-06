@@ -4,6 +4,7 @@ import {destroy} from "./entity.js";
 import {sys_aim} from "./systems/sys_aim.js";
 import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
+import {sys_control_always} from "./systems/sys_control_always.js";
 import {sys_control_mob} from "./systems/sys_control_mob.js";
 import {sys_control_spawn} from "./systems/sys_control_spawn.js";
 import {sys_control_turret} from "./systems/sys_control_turret.js";
@@ -59,6 +60,7 @@ export class Game {
         sys_control_turret(this, delta);
         sys_control_mob(this, delta);
         sys_control_spawn(this, delta);
+        sys_control_always(this, delta);
 
         // Game logic.
         sys_lifespan(this, delta);
