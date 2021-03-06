@@ -1,5 +1,6 @@
 import {get_rotation, get_translation} from "../../common/mat2d.js";
 import {Vec2} from "../../common/math.js";
+import {transform2d} from "../components/com_transform2d.js";
 import {instantiate} from "../entity.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
@@ -28,10 +29,9 @@ function update(game: Game, entity: Entity, delta: number) {
 
         let world_rotation = get_rotation(transform.WorldSpace);
 
-        instantiate(game, {
+        instantiate(game, [
             ...control.Creator(game),
-            Translation: world_position,
-            Rotation: world_rotation + (Math.random() - 0.5) * control.Scatter,
-        });
+            transform2d(world_position, world_rotation + (Math.random() - 0.5) * control.Scatter),
+        ]);
     }
 }
