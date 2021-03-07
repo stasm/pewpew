@@ -1,6 +1,6 @@
 import {Game} from "../src/game.js";
 import {scene_stage} from "../src/scenes/sce_stage.js";
-import {print_stats, reset_stats, Stats, update_stats} from "../src/stats.js";
+import {print_averages, reset_stats, Stats, update_stats} from "../src/stats.js";
 import {update_framerate} from "./framerate.js";
 
 class BrowserGame extends Game {
@@ -17,6 +17,7 @@ class BrowserGame extends Game {
         EntityCreate: 0,
         EntityDestroy: 0,
         SignatureChange: 0,
+        DrawCall: 0,
     };
 
     constructor() {
@@ -36,7 +37,7 @@ class BrowserGame extends Game {
         let last = performance.now();
         tick(last);
 
-        this.StatsIntervalId = window.setInterval(() => print_stats(game.TotalStats), 1000);
+        this.StatsIntervalId = window.setInterval(() => print_averages(game.TotalStats), 1000);
     }
 
     Stop() {

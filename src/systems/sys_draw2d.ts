@@ -44,6 +44,7 @@ export function sys_draw2d(game: Game, delta: number) {
 function draw_rect(game: Game, draw: DrawRect) {
     game.Context2D.fillStyle = draw.Color;
     game.Context2D.fillRect(-draw.Width / 2, -draw.Height / 2, draw.Width, draw.Height);
+    game.FrameStats.DrawCall++;
 }
 
 function draw_circle(game: Game, draw: DrawCircle) {
@@ -53,6 +54,8 @@ function draw_circle(game: Game, draw: DrawCircle) {
     game.Context2D.beginPath();
     game.Context2D.arc(0, 0, draw.Radius, 0, 2 * Math.PI);
     game.Context2D.fill();
+    game.FrameStats.DrawCall++;
     game.Context2D.lineTo(0, 0);
     game.Context2D.stroke();
+    game.FrameStats.DrawCall++;
 }

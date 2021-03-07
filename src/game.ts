@@ -40,6 +40,7 @@ export abstract class Game {
         EntityCreate: 0,
         EntityDestroy: 0,
         SignatureChange: 0,
+        DrawCall: 0,
     };
 
     FrameUpdate(delta: number) {

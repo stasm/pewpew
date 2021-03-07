@@ -2,7 +2,7 @@ import {performance} from "perf_hooks";
 import {FakeRenderingContext2D} from "../src/context2d.js";
 import {Game} from "../src/game.js";
 import {scene_stage} from "../src/scenes/sce_stage.js";
-import {print_stats, reset_stats, Stats, update_stats} from "../src/stats.js";
+import {print_averages, reset_stats, Stats, update_stats} from "../src/stats.js";
 
 const RUN_TIME_S = 10;
 const RUN_TIME_MS = RUN_TIME_S * 1000;
@@ -19,6 +19,7 @@ class NodeGame extends Game {
         EntityCreate: 0,
         EntityDestroy: 0,
         SignatureChange: 0,
+        DrawCall: 0,
     };
 
     Start() {
@@ -32,7 +33,7 @@ class NodeGame extends Game {
             this.Ticks++;
         }
 
-        print_stats(game.TotalStats);
+        print_averages(game.TotalStats);
         console.log("fps: ", this.Ticks / RUN_TIME_S);
     }
 
