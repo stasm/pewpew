@@ -1,14 +1,5 @@
-export class FakeCanvas {
-    width: number = 0;
-    height: number = 0;
-
-    getContext(kind: string) {
-        return new FakeRenderingContext2D();
-    }
-}
-
 export class FakeRenderingContext2D {
-    fillStyle: string = "black";
+    fillStyle: any = "black";
     lineWidth: number = 1;
 
     setTransform(a: number, b: number, c: number, d: number, e: number, f: number) {}

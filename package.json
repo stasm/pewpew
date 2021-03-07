@@ -14,8 +14,8 @@
     "license": "ISC",
     "scripts": {
         "clean": "find . -type d -name node_modules -prune -o -name '*.js' -exec rm {} +",
-        "compile": "tsc",
-        "compile:watch": "tsc --watch -p .",
+        "compile": "tsc -p browser/tsconfig.json",
+        "compile:watch": "tsc --watch -p browser/tsconfig.json",
         "lint": "prettier --check \"**/*.ts\"",
         "pretty": "prettier --write \"**/*.ts\"",
         "serve": "live-server --port=1234 --no-browser --quiet .",
@@ -23,7 +23,7 @@
         "test": "npm run clean && npm run lint && npm run compile"
     },
     "devDependencies": {
-        "@types/webgl2": "0.0.5",
+        "@types/node": "^14.14.32",
         "htmlnano": "^0.2.6",
         "live-server": "1.2.1",
         "npm-run-all": "4.1.5",
@@ -35,6 +35,6 @@
         "typescript": "4.0.3"
     },
     "engines": {
-        "node": "12.x"
+        "node": "14.x"
     }
 }

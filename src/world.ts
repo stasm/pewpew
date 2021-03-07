@@ -79,21 +79,12 @@ export class World {
             return this.Graveyard.pop()!;
         }
 
-        if (DEBUG && this.Signature.length > 10000) {
-            throw new Error("No more entities available.");
-        }
-
         // Push a new signature and return its index.
         return this.Signature.push(0) - 1;
     }
 
     DestroyEntity(entity: Entity) {
         this.Signature[entity] = 0;
-
-        if (DEBUG && this.Graveyard.includes(entity)) {
-            throw new Error("Entity already in graveyard.");
-        }
-
         this.Graveyard.push(entity);
     }
 }

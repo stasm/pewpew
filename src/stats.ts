@@ -7,6 +7,14 @@ export interface Stats {
     SignatureChange: number;
 }
 
+export function reset_stats(frame: Stats) {
+    frame.UpdateTime = 0;
+    frame.EntityCount = 0;
+    frame.EntityCreate = 0;
+    frame.EntityDestroy = 0;
+    frame.SignatureChange = 0;
+}
+
 export function update_stats(total: Stats, frame: Stats) {
     total.Ticks++;
 
@@ -15,12 +23,6 @@ export function update_stats(total: Stats, frame: Stats) {
     total.EntityCreate += frame.EntityCreate;
     total.EntityDestroy += frame.EntityDestroy;
     total.SignatureChange += frame.SignatureChange;
-
-    frame.UpdateTime = 0;
-    frame.EntityCount = 0;
-    frame.EntityCreate = 0;
-    frame.EntityDestroy = 0;
-    frame.SignatureChange = 0;
 }
 
 export function print_stats(total: Stats) {

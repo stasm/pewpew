@@ -1,17 +1,8 @@
-EXAMPLE ?= src
-
 all: index.html
 	@printf "Size gzipped: %s bytes\n" $(shell gzip index.html --stdout | wc -c)
 
-../$(EXAMPLE)/index.js: $(shell find .. -type f -name "*.ts")
-	@echo -n "Compiling project... "
-	@npx tsc
-	@echo "Done"
-
-game.rollup.js: ../$(EXAMPLE)/index.js
-	@echo -n "Bundling files into one... "
-	@npx rollup --format iife $< --silent > $@
-	@echo "Done"
+game.rollup.js:
+	@cp ../browser/game.rollup.js $@
 
 game.sed.js: game.rollup.js
 	@echo -n "Running replacements... "

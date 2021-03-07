@@ -1,10 +1,8 @@
-import {Game} from "../game.js";
-
 let update_span = document.getElementById("update");
 let delta_span = document.getElementById("delta");
 let fps_span = document.getElementById("fps");
 
-export function sys_framerate(game: Game, delta: number, update: number) {
+export function update_framerate(delta: number, update: number) {
     if (update_span) {
         update_span.textContent = update.toFixed(1);
     }
