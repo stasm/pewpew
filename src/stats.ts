@@ -22,3 +22,14 @@ export function update_stats(total: Stats, frame: Stats) {
     frame.EntityDestroy = 0;
     frame.SignatureChange = 0;
 }
+
+export function print_stats(total: Stats) {
+    console.log({
+        Ticks: total.Ticks,
+        UpdateTime: total.UpdateTime / total.Ticks,
+        EntityCount: total.EntityCount / total.Ticks,
+        EntityCreate: total.EntityCreate / total.Ticks,
+        EntityDestroy: total.EntityDestroy / total.Ticks,
+        SignatureChange: total.SignatureChange / total.Ticks,
+    });
+}
