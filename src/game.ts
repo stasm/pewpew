@@ -2,6 +2,7 @@ import {FakeCanvas} from "./canvas.js";
 import {Camera} from "./components/com_camera.js";
 import {GridCell} from "./components/com_grid.js";
 import {destroy} from "./entity.js";
+import {Stats, update_stats} from "./stats.js";
 import {sys_aim} from "./systems/sys_aim.js";
 import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
@@ -88,31 +89,9 @@ export class Game {
         }
         this.Morgue.clear();
 
+        // Performance measurement and stats.
         this.FrameStats.UpdateTime = performance.now() - now;
         sys_framerate(this, delta, this.FrameStats.UpdateTime);
+        update_stats(this.TotalStats, this.FrameStats);
     }
-
-    FrameReset() {
-        this.TotalStats.Ticks++;
-        this.TotalStats.UpdateTime += this.FrameStats.UpdateTime;
-        this.TotalStats.EntityCount += this.FrameStats.EntityCount;
-        this.TotalStats.EntityCreate += this.FrameStats.EntityCreate;
-        this.TotalStats.EntityDestroy += this.FrameStats.EntityDestroy;
-        this.TotalStats.SignatureChange += this.FrameStats.SignatureChange;
-
-        this.FrameStats.UpdateTime = 0;
-        this.FrameStats.EntityCount = 0;
-        this.FrameStats.EntityCreate = 0;
-        this.FrameStats.EntityDestroy = 0;
-        this.FrameStats.SignatureChange = 0;
-    }
-}
-
-interface Stats {
-    Ticks: number;
-    UpdateTime: number;
-    EntityCount: number;
-    EntityCreate: number;
-    EntityDestroy: number;
-    SignatureChange: number;
 }
