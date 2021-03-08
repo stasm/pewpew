@@ -6,6 +6,7 @@ export class FakeRenderingContext2D {
     resetTransform() {}
 
     fillRect(x: number, y: number, width: number, height: number) {}
+    strokeRect(x: number, y: number, width: number, height: number) {}
     beginPath() {}
     arc(x: number, y: number, radius: number, angle_start: number, angle_end: number) {}
     fill() {}

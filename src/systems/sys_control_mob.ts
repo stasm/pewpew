@@ -1,3 +1,4 @@
+import {query_all} from "../components/com_children.js";
 import {MobKind} from "../components/com_control_mob.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
@@ -30,11 +31,14 @@ function update(game: Game, entity: Entity) {
         transform.Rotation = Math.random() * Math.PI * 2;
         transform.Dirty = true;
 
-        let draw = game.World.Draw[entity];
-        draw.Color = "silver";
+        for (let child of query_all(game.World, entity, Has.Draw)) {
+            let draw = game.World.Draw[child];
+            draw.Color = "silver";
+        }
     }
 
     switch (control.Kind) {
+        case MobKind.Rivet:
         case MobKind.Light: {
             if (Math.random() < 0.1) {
                 transform.Rotation += (Math.random() - 0.5) * 0.1;

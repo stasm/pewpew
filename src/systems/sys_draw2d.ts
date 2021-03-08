@@ -45,6 +45,8 @@ function draw_rect(game: Game, draw: DrawRect) {
     game.Context2D.fillStyle = draw.Color;
     game.Context2D.fillRect(-draw.Width / 2, -draw.Height / 2, draw.Width, draw.Height);
     game.FrameStats.DrawCall++;
+    game.Context2D.strokeRect(-draw.Width / 2, -draw.Height / 2, draw.Width, draw.Height);
+    game.FrameStats.DrawCall++;
 }
 
 function draw_circle(game: Game, draw: DrawCircle) {

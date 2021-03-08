@@ -20,6 +20,8 @@ import {
     MOB_HEAVY_SPAWN_FREQUENCY,
     MOB_LIGHT_LIFESPAN,
     MOB_LIGHT_SPAWN_FREQUENCY,
+    MOB_RIVET_LIFESPAN,
+    MOB_RIVET_SPAWN_FREQUENCY,
     TURRET_COUNT,
     TURRET_SHOOT_FREQUENCY,
 } from "../config.js";
@@ -93,6 +95,11 @@ export function scene_stage(game: Game) {
             ],
             [
                 transform2d(),
+                spawn(mob_rivet_blueprint, MOB_RIVET_SPAWN_FREQUENCY, 0.3),
+                shake(Infinity, 100),
+            ],
+            [
+                transform2d(),
                 spawn(mob_heavy_blueprint, MOB_HEAVY_SPAWN_FREQUENCY, 0.5),
                 shake(Infinity, 100),
             ]
@@ -118,6 +125,28 @@ function mob_light_blueprint(game: Game): Blueprint {
     ];
 }
 
+function mob_rivet_blueprint(game: Game): Blueprint {
+    return [
+        transform2d(),
+        move(30),
+        control_mob(MobKind.Light),
+        control_always(true, 0),
+        lifespan(MOB_RIVET_LIFESPAN),
+        grid(),
+        collide(10),
+        health(1),
+        children([
+            transform2d(),
+            move(0),
+            control_always(false, 5),
+            children(
+                [transform2d([3, 0]), draw_rect(5, 9, "red")],
+                [transform2d([-3, 0], Math.PI / 2), draw_rect(5, 9, "red")]
+            ),
+        ]),
+    ];
+}
+
 function mob_heavy_blueprint(game: Game): Blueprint {
     return [
         transform2d(),
@@ -134,10 +163,10 @@ function mob_heavy_blueprint(game: Game): Blueprint {
             move(0),
             control_always(false, 1),
             children(
-                [transform2d([25, 0]), draw_rect(5, 10, "black")],
-                [transform2d([0, 25]), draw_rect(10, 5, "black")],
-                [transform2d([-25, 0]), draw_rect(5, 10, "black")],
-                [transform2d([0, -25]), draw_rect(10, 5, "black")]
+                [transform2d([25, 0]), draw_rect(3, 10, "black")],
+                [transform2d([0, 25]), draw_rect(10, 3, "black")],
+                [transform2d([-25, 0]), draw_rect(3, 10, "black")],
+                [transform2d([0, -25]), draw_rect(10, 3, "black")]
             ),
         ]),
     ];
@@ -157,7 +186,7 @@ function turret_blueprint(game: Game): Blueprint {
 function bullet_blueprint(game: Game): Blueprint {
     return [
         transform2d(),
-        draw_rect(5, 5, "black"),
+        draw_rect(3, 3, "black"),
         move(100),
         control_always(true, 0),
         lifespan(10),

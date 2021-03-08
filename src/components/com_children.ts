@@ -32,7 +32,9 @@ export function* query_all(world: World, parent: Entity, mask: Has): IterableIte
     if (world.Signature[parent] & mask) {
         yield parent;
     }
-    for (let child of world.Children[parent].Children) {
-        yield* query_all(world, child, mask);
+    if (world.Signature[parent] & Has.Children) {
+        for (let child of world.Children[parent].Children) {
+            yield* query_all(world, child, mask);
+        }
     }
 }
