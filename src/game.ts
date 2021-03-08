@@ -1,7 +1,7 @@
 import {Camera} from "./components/com_camera.js";
 import {GridCell} from "./components/com_grid.js";
 import {FakeRenderingContext2D} from "./context2d.js";
-import {destroy} from "./entity.js";
+import {Blueprint, destroy, instantiate} from "./entity.js";
 import {Stats} from "./stats.js";
 import {sys_aim} from "./systems/sys_aim.js";
 import {sys_camera} from "./systems/sys_camera.js";
@@ -23,6 +23,7 @@ export type Entity = number;
 
 export abstract class Game {
     World = new World();
+    Nursery: Array<Blueprint> = [];
     Morgue: Set<Entity> = new Set();
 
     ViewportWidth = 1000;
@@ -68,10 +69,19 @@ export abstract class Game {
         sys_camera(this, delta);
         sys_draw2d(this, delta);
 
-        // Destroy dead entities.
+        // Create new entities and destroy the existing ones at the end of the
+        // frame. If this is done mid-frame, not all systems will run for a
+        // given entity, depending on where it's created or destroyed.
+
+        for (let blueprint of this.Nursery) {
+            instantiate(this, blueprint);
+        }
+
         for (let entity of this.Morgue) {
             destroy(this, entity);
         }
+
+        this.Nursery = [];
         this.Morgue.clear();
     }
 }

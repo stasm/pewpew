@@ -3,7 +3,6 @@ import {Vec2} from "../../common/math.js";
 import {explosion_blueprint} from "../blueprints/blu_explosion.js";
 import {query_all} from "../components/com_children.js";
 import {MobKind} from "../components/com_control_mob.js";
-import {instantiate} from "../entity.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
@@ -31,7 +30,7 @@ function update(game: Game, entity: Entity) {
 
         let world_position: Vec2 = [0, 0];
         get_translation(world_position, transform.WorldSpace);
-        setTimeout(() => instantiate(game, explosion_blueprint(game, world_position)));
+        game.Nursery.push(explosion_blueprint(game, world_position));
 
         for (let child of query_all(game.World, entity, Has.Move)) {
             game.World.Signature[child] &= ~Has.Move;
