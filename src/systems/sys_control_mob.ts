@@ -1,10 +1,10 @@
 import {get_translation} from "../../common/mat2d.js";
 import {Vec2} from "../../common/math.js";
+import {explosion_blueprint} from "../blueprints/blu_explosion.js";
 import {query_all} from "../components/com_children.js";
 import {MobKind} from "../components/com_control_mob.js";
 import {instantiate} from "../entity.js";
 import {Entity, Game} from "../game.js";
-import {explosion_blueprint} from "../scenes/sce_stage.js";
 import {Has} from "../world.js";
 
 const QUERY = Has.ControlMob | Has.Health;
