@@ -1,6 +1,10 @@
+import {get_translation} from "../../common/mat2d.js";
+import {Vec2} from "../../common/math.js";
 import {query_all} from "../components/com_children.js";
 import {MobKind} from "../components/com_control_mob.js";
+import {instantiate} from "../entity.js";
 import {Entity, Game} from "../game.js";
+import {explosion_blueprint} from "../scenes/sce_stage.js";
 import {Has} from "../world.js";
 
 const QUERY = Has.ControlMob | Has.Health;
@@ -36,7 +40,14 @@ function update(game: Game, entity: Entity) {
     }
 
     switch (control.Kind) {
-        case MobKind.Rivet:
+        case MobKind.Drone:
+            if (health.Amount <= 0) {
+                let world_position: Vec2 = [0, 0];
+                get_translation(world_position, transform.WorldSpace);
+                setTimeout(() => instantiate(game, explosion_blueprint(game, world_position)));
+            }
+
+        // Fall through.
         case MobKind.Light: {
             if (Math.random() < 0.1) {
                 transform.Rotation += (Math.random() - 0.5) * 0.1;

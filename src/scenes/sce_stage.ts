@@ -1,3 +1,4 @@
+import {Vec2} from "../../common/math.js";
 import {set_seed} from "../../common/random.js";
 import {aim} from "../components/com_aim.js";
 import {camera} from "../components/com_camera.js";
@@ -25,9 +26,6 @@ import {
     MOB_LIGHT_LIFESPAN,
     MOB_LIGHT_SPAWN_FREQUENCY,
     MOB_LIGHT_SPEED,
-    MOB_RIVET_LIFESPAN,
-    MOB_RIVET_SPAWN_FREQUENCY,
-    MOB_RIVET_SPEED,
     TURRET_COUNT,
     TURRET_SHOOT_FREQUENCY,
 } from "../config.js";
@@ -101,11 +99,6 @@ export function scene_stage(game: Game) {
             ],
             [
                 transform2d(),
-                spawn(mob_rivet_blueprint, MOB_RIVET_SPAWN_FREQUENCY, 0.3),
-                shake(Infinity, 100),
-            ],
-            [
-                transform2d(),
                 spawn(mob_drone_blueprint, MOB_DRONE_SPAWN_FREQUENCY, 1),
                 shake(Infinity, 100),
             ],
@@ -136,33 +129,11 @@ function mob_light_blueprint(game: Game): Blueprint {
     ];
 }
 
-function mob_rivet_blueprint(game: Game): Blueprint {
-    return [
-        transform2d(),
-        move(MOB_RIVET_SPEED),
-        control_mob(MobKind.Light),
-        control_always(true, 0),
-        lifespan(MOB_RIVET_LIFESPAN),
-        grid(),
-        collide(10),
-        health(1),
-        children([
-            transform2d(),
-            move(0),
-            control_always(false, 5),
-            children(
-                [transform2d([3, 0]), draw_rect(5, 9, "red")],
-                [transform2d([-3, 0], Math.PI / 2), draw_rect(5, 9, "red")]
-            ),
-        ]),
-    ];
-}
-
 function mob_drone_blueprint(game: Game): Blueprint {
     return [
         transform2d(),
         move(MOB_DRONE_SPEED),
-        control_mob(MobKind.Light),
+        control_mob(MobKind.Drone),
         control_always(true, 0),
         lifespan(MOB_DRONE_LIFESPAN),
         grid(),
@@ -224,5 +195,31 @@ function bullet_blueprint(game: Game): Blueprint {
         collide(5),
         damage(1),
         grid(),
+    ];
+}
+
+function rivet_blueprint(game: Game): Blueprint {
+    return [
+        transform2d(),
+        move(50),
+        control_always(true, 0),
+        lifespan(2),
+        children([
+            transform2d(),
+            move(0),
+            control_always(false, 5),
+            children(
+                [transform2d([3, 0]), draw_rect(5, 9, "silver")],
+                [transform2d([-3, 0], Math.PI / 2), draw_rect(5, 9, "silver")]
+            ),
+        ]),
+    ];
+}
+
+export function explosion_blueprint(game: Game, translation: Vec2): Blueprint {
+    return [
+        transform2d(translation, Math.random() * Math.PI * 2),
+        lifespan(0.1),
+        spawn(rivet_blueprint, 0, Math.PI),
     ];
 }

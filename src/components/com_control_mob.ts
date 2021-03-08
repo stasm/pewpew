@@ -3,7 +3,7 @@ import {Has} from "../world.js";
 
 export const enum MobKind {
     Light,
-    Rivet,
+    Drone,
     Heavy,
 }
 
