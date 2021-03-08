@@ -29,6 +29,10 @@ function update(game: Game, entity: Entity) {
         transform.Rotation = Math.random() * Math.PI * 2;
         transform.Dirty = true;
 
+        let world_position: Vec2 = [0, 0];
+        get_translation(world_position, transform.WorldSpace);
+        setTimeout(() => instantiate(game, explosion_blueprint(game, world_position)));
+
         for (let child of query_all(game.World, entity, Has.Move)) {
             game.World.Signature[child] &= ~Has.Move;
         }
@@ -41,13 +45,6 @@ function update(game: Game, entity: Entity) {
 
     switch (control.Kind) {
         case MobKind.Drone:
-            if (health.Amount <= 0) {
-                let world_position: Vec2 = [0, 0];
-                get_translation(world_position, transform.WorldSpace);
-                setTimeout(() => instantiate(game, explosion_blueprint(game, world_position)));
-            }
-
-        // Fall through.
         case MobKind.Light: {
             if (Math.random() < 0.1) {
                 transform.Rotation += (Math.random() - 0.5) * 0.1;
