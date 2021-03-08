@@ -34,7 +34,7 @@ class NodeGame extends Game {
         }
 
         print_averages(game.TotalStats);
-        console.log("fps: ", this.Ticks / RUN_TIME_S);
+        console.log("FPS:", this.Ticks / RUN_TIME_S);
     }
 
     FrameUpdate(delta: number) {

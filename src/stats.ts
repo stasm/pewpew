@@ -29,8 +29,8 @@ export function update_stats(total: Stats, frame: Stats) {
 }
 
 export function print_averages(total: Stats) {
-    console.log({
-        Ticks: total.Ticks,
+    console.log("Total ticks:", total.Ticks);
+    console.log("Averages per frame:", {
         UpdateTime: total.UpdateTime / total.Ticks,
         EntityCount: total.EntityCount / total.Ticks,
         EntityCreate: total.EntityCreate / total.Ticks,
