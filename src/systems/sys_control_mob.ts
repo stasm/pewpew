@@ -21,15 +21,13 @@ function update(game: Game, entity: Entity) {
     if (health.Amount <= 0) {
         game.FrameStats.SignatureChange++;
         game.World.Signature[entity] &= ~(Has.Health | Has.Grid | Has.Collide | Has.Move);
-        if (game.World.Signature[entity] & Has.Children) {
-            let children = game.World.Children[entity];
-            let pivot_entity = children.Children[0];
-            // Stop the rotation of the blades.
-            game.World.Signature[pivot_entity] &= ~Has.Move;
-        }
 
         transform.Rotation = Math.random() * Math.PI * 2;
         transform.Dirty = true;
+
+        for (let child of query_all(game.World, entity, Has.Move)) {
+            game.World.Signature[child] &= ~Has.Move;
+        }
 
         for (let child of query_all(game.World, entity, Has.Draw)) {
             let draw = game.World.Draw[child];

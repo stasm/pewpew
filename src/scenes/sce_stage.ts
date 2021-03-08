@@ -16,12 +16,18 @@ import {move} from "../components/com_move.js";
 import {shake} from "../components/com_shake.js";
 import {transform2d} from "../components/com_transform2d.js";
 import {
+    MOB_DRONE_LIFESPAN,
+    MOB_DRONE_SPAWN_FREQUENCY,
+    MOB_DRONE_SPEED,
     MOB_HEAVY_LIFESPAN,
     MOB_HEAVY_SPAWN_FREQUENCY,
+    MOB_HEAVY_SPEED,
     MOB_LIGHT_LIFESPAN,
     MOB_LIGHT_SPAWN_FREQUENCY,
+    MOB_LIGHT_SPEED,
     MOB_RIVET_LIFESPAN,
     MOB_RIVET_SPAWN_FREQUENCY,
+    MOB_RIVET_SPEED,
     TURRET_COUNT,
     TURRET_SHOOT_FREQUENCY,
 } from "../config.js";
@@ -100,6 +106,11 @@ export function scene_stage(game: Game) {
             ],
             [
                 transform2d(),
+                spawn(mob_drone_blueprint, MOB_DRONE_SPAWN_FREQUENCY, 1),
+                shake(Infinity, 100),
+            ],
+            [
+                transform2d(),
                 spawn(mob_heavy_blueprint, MOB_HEAVY_SPAWN_FREQUENCY, 0.5),
                 shake(Infinity, 100),
             ]
@@ -115,7 +126,7 @@ function mob_light_blueprint(game: Game): Blueprint {
     return [
         transform2d(),
         draw_circle(10, "red"),
-        move(40),
+        move(MOB_LIGHT_SPEED),
         control_mob(MobKind.Light),
         control_always(true, 0),
         lifespan(MOB_LIGHT_LIFESPAN),
@@ -128,7 +139,7 @@ function mob_light_blueprint(game: Game): Blueprint {
 function mob_rivet_blueprint(game: Game): Blueprint {
     return [
         transform2d(),
-        move(30),
+        move(MOB_RIVET_SPEED),
         control_mob(MobKind.Light),
         control_always(true, 0),
         lifespan(MOB_RIVET_LIFESPAN),
@@ -147,11 +158,31 @@ function mob_rivet_blueprint(game: Game): Blueprint {
     ];
 }
 
+function mob_drone_blueprint(game: Game): Blueprint {
+    return [
+        transform2d(),
+        move(MOB_DRONE_SPEED),
+        control_mob(MobKind.Light),
+        control_always(true, 0),
+        lifespan(MOB_DRONE_LIFESPAN),
+        grid(),
+        collide(20),
+        health(3),
+        draw_rect(10, 7, "orange"),
+        children(
+            [transform2d([7, 7]), draw_circle(5, "orange"), move(0), control_always(false, -30)],
+            [transform2d([7, -7]), draw_circle(5, "orange"), move(0), control_always(false, 30)],
+            [transform2d([-7, 7]), draw_circle(5, "orange"), move(0), control_always(false, -30)],
+            [transform2d([-7, -7]), draw_circle(5, "orange"), move(0), control_always(false, 30)]
+        ),
+    ];
+}
+
 function mob_heavy_blueprint(game: Game): Blueprint {
     return [
         transform2d(),
         draw_circle(20, "dodgerblue"),
-        move(20),
+        move(MOB_HEAVY_SPEED),
         control_mob(MobKind.Heavy),
         control_always(true, 0),
         lifespan(MOB_HEAVY_LIFESPAN),
