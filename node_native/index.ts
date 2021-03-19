@@ -1,5 +1,5 @@
+import {FakeRenderingContext2D} from "fake-canvas";
 import {performance} from "perf_hooks";
-import {FakeRenderingContext2D} from "../src/context2d.js";
 import {Game} from "../src/game.js";
 import {scene_stage} from "../src/scenes/sce_stage.js";
 import {print_averages, reset_stats, Stats, update_stats} from "../src/stats.js";

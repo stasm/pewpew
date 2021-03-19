@@ -36,5 +36,8 @@
     },
     "engines": {
         "node": "14.x"
+    },
+    "dependencies": {
+        "fake-canvas": "^1.0.0"
     }
 }

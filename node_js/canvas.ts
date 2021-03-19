@@ -1,5 +1,5 @@
 export class FakeRenderingContext2D {
-    fillStyle: any = "black";
+    fillStyle: string | CanvasGradient | CanvasPattern = "black";
     lineWidth: number = 1;
 
     setTransform(a: number, b: number, c: number, d: number, e: number, f: number) {}

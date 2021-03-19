@@ -1,6 +1,6 @@
+import {MinimalRenderingContext2D} from "./canvas.js";
 import {Camera} from "./components/com_camera.js";
 import {GridCell} from "./components/com_grid.js";
-import {FakeRenderingContext2D} from "./context2d.js";
 import {Blueprint, destroy, instantiate} from "./entity.js";
 import {Stats} from "./stats.js";
 import {sys_aim} from "./systems/sys_aim.js";
@@ -29,7 +29,7 @@ export abstract class Game {
     ViewportWidth = 1000;
     ViewportHeight = 1000;
 
-    abstract Context2D: FakeRenderingContext2D;
+    abstract Context2D: MinimalRenderingContext2D;
 
     Grid: Array<Array<GridCell>> = [];
     Camera?: Camera;

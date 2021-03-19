@@ -1,27 +1,30 @@
-# New Project
+# PewPew
+
+## Set-Up
+
+    $ git clone https://github.com/stasm/pewpew.git
+    $ cd pewpew
+    $ npm install
+
+## Run In The Browser
+
+1. `npm start`
+2. Open http://localhost:1234
+
+## Run In Node
+
+You can choose between running with a no-op `RenderingContext2D` class implemented in either pure JS or as a native Node module (written in C++). Keep in mind that the pure-JS version is likely to optimize the no-op draw calls away. In my measurements it's ca. 35% faster than the native module version.
+
+### Pure JS
+
+    $ make -C node_js
+    $ node node_js/game.rollup.js
+
+### Native Module
+
+    $ make -C node_native
+    $ node node_native/game.rollup.js
+
+----
 
 This project is based on [Goodluck](https://github.com/piesku/goodluck), a hackable template for creating small and fast browser games.
-
-## Running Locally
-
-To run locally, install the dependencies and start the local dev server:
-
-    npm install
-    npm start
-
-Then, open http://localhost:1234 in the browser.
-
-In VS Code, Ctrl+Shift+B will show the available build tasks, including `npm start`, and F5 will open the browser.
-
-## Building
-
-To produce the optimized build, use the `Makefile` in `play/`.
-
-    make -C play
-
-The default target will create a single HTML file, `play/index.html`, will all resources inlined.
-
-If you have the 7-Zip command line utility installed (`p7zip-full` on Ubuntu), you can build the ZIP file by running:
-
-    make -C play index.zip
-

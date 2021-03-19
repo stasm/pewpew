@@ -5,6 +5,7 @@ import {spawn} from "../components/com_control_spawn.js";
 import {draw_rect} from "../components/com_draw.js";
 import {lifespan} from "../components/com_lifespan.js";
 import {move} from "../components/com_move.js";
+import {shake} from "../components/com_shake.js";
 import {transform2d} from "../components/com_transform2d.js";
 import {Blueprint} from "../entity.js";
 import {Game} from "../game.js";
@@ -13,7 +14,7 @@ export function explosion_blueprint(game: Game, translation: Vec2): Blueprint {
     return [
         transform2d(translation, Math.random() * Math.PI * 2),
         lifespan(0.1),
-        spawn(rivet_blueprint, 0, Math.PI),
+        children([transform2d(), shake(Infinity, 1), spawn(rivet_blueprint, 0, Math.PI)]),
     ];
 }
 
