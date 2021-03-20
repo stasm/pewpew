@@ -6,11 +6,7 @@
         "strict": true,
     },
     "include": [
-        "game.ts",
-        "index_fake_canvas.ts",
-        "index_node_canvas.ts",
-        "index_noop_canvas.ts",
-        "../common/**/*",
-        "../src/**/*",
+        "./*.ts",
+        "../src/**/*.ts",
     ]
 }

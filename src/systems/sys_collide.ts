@@ -1,8 +1,8 @@
-import {get_translation} from "../../common/mat2d.js";
-import {distance_squared} from "../../common/vec2.js";
 import {Collide} from "../components/com_collide.js";
 import {GridCell} from "../components/com_grid.js";
 import {Game} from "../game.js";
+import {get_translation} from "../toolkit/mat2d.js";
+import {distance_squared} from "../toolkit/vec2.js";
 import {Has, World} from "../world.js";
 
 const QUERY = Has.Transform2D | Has.Collide;

@@ -1,6 +1,6 @@
-import {get_translation} from "../../common/mat2d.js";
-import {Vec2} from "../../common/math.js";
 import {Entity, Game} from "../game.js";
+import {get_translation} from "../toolkit/mat2d.js";
+import {Vec2} from "../toolkit/math.js";
 import {Has} from "../world.js";
 
 const QUERY = Has.Grid | Has.Transform2D;

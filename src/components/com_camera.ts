@@ -1,6 +1,6 @@
-import {create} from "../../common/mat2d.js";
-import {Mat2D} from "../../common/math.js";
 import {Entity, Game} from "../game.js";
+import {create} from "../toolkit/mat2d.js";
+import {Mat2D} from "../toolkit/math.js";
 import {Has} from "../world.js";
 
 export interface Camera {

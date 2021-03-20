@@ -1,7 +1,7 @@
-import {get_translation} from "../../common/mat2d.js";
-import {Vec2} from "../../common/math.js";
-import {subtract} from "../../common/vec2.js";
 import {Entity, Game} from "../game.js";
+import {get_translation} from "../toolkit/mat2d.js";
+import {Vec2} from "../toolkit/math.js";
+import {subtract} from "../toolkit/vec2.js";
 import {Has} from "../world.js";
 
 const QUERY = Has.Transform2D | Has.Aim;

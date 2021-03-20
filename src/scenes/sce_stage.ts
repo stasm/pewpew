@@ -1,4 +1,3 @@
-import {set_seed} from "../../common/random.js";
 import {
     mob_drone_blueprint,
     mob_heavy_blueprint,
@@ -20,6 +19,7 @@ import {instantiate} from "../entity.js";
 import {Game} from "../game.js";
 import {sys_grid} from "../systems/sys_grid.js";
 import {sys_transform2d} from "../systems/sys_transform2d.js";
+import {set_seed} from "../toolkit/random.js";
 import {World} from "../world.js";
 
 export function scene_stage(game: Game) {

@@ -1,6 +1,6 @@
-import {multiply} from "../../common/mat2d.js";
 import {DrawCircle, DrawKind, DrawRect} from "../components/com_draw.js";
 import {Game} from "../game.js";
+import {multiply} from "../toolkit/mat2d.js";
 import {Has} from "../world.js";
 
 const QUERY = Has.Transform2D | Has.Draw;

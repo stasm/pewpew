@@ -1,5 +1,5 @@
-import {Rad} from "../../common/math.js";
 import {Entity, Game} from "../game.js";
+import {Rad} from "../toolkit/math.js";
 import {Has} from "../world.js";
 
 export interface ControlAlways {

@@ -1,5 +1,5 @@
-import {Rad, Vec2} from "../../common/math.js";
 import {Entity, Game} from "../game.js";
+import {Rad, Vec2} from "../toolkit/math.js";
 import {Has} from "../world.js";
 
 export interface Move {

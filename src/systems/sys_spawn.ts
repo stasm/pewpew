@@ -1,7 +1,7 @@
-import {get_rotation, get_translation} from "../../common/mat2d.js";
-import {Vec2} from "../../common/math.js";
 import {transform2d} from "../components/com_transform2d.js";
 import {Entity, Game} from "../game.js";
+import {get_rotation, get_translation} from "../toolkit/mat2d.js";
+import {Vec2} from "../toolkit/math.js";
 import {Has} from "../world.js";
 
 const QUERY = Has.Transform2D | Has.Spawn;

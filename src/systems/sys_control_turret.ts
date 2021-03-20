@@ -1,6 +1,6 @@
-import {element} from "../../common/random.js";
 import {GridCell} from "../components/com_grid.js";
 import {Entity, Game} from "../game.js";
+import {element} from "../toolkit/random.js";
 import {Has, World} from "../world.js";
 
 const QUERY = Has.Aim | Has.ControlTurret | Has.Grid;

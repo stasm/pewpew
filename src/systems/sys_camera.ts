@@ -1,5 +1,5 @@
-import {invert} from "../../common/mat2d.js";
 import {Entity, Game} from "../game.js";
+import {invert} from "../toolkit/mat2d.js";
 import {Has} from "../world.js";
 
 const QUERY = Has.Camera | Has.Transform2D;

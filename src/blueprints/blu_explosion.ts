@@ -1,4 +1,3 @@
-import {Vec2} from "../../common/math.js";
 import {children} from "../components/com_children.js";
 import {control_always} from "../components/com_control_always.js";
 import {spawn} from "../components/com_control_spawn.js";
@@ -9,6 +8,7 @@ import {shake} from "../components/com_shake.js";
 import {transform2d} from "../components/com_transform2d.js";
 import {Blueprint} from "../entity.js";
 import {Game} from "../game.js";
+import {Vec2} from "../toolkit/math.js";
 
 export function explosion_blueprint(game: Game, translation: Vec2): Blueprint {
     return [

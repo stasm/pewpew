@@ -1,5 +1,5 @@
-import {scale} from "../../common/vec2.js";
 import {Entity, Game} from "../game.js";
+import {scale} from "../toolkit/vec2.js";
 import {Has} from "../world.js";
 
 const QUERY = Has.Transform2D | Has.Shake;
