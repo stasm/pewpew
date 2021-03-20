@@ -1,4 +1,7 @@
-export class FakeRenderingContext2D {
+import {scene_stage} from "../src/scenes/sce_stage.js";
+import {NodeGame} from "./game.js";
+
+class NoopRenderingContext2D {
     fillStyle: string | CanvasGradient | CanvasPattern = "black";
     lineWidth: number = 1;
 
@@ -13,3 +16,11 @@ export class FakeRenderingContext2D {
     lineTo(x: number, y: number) {}
     stroke() {}
 }
+
+class NoopCanvasGame extends NodeGame {
+    Context2D = new NoopRenderingContext2D();
+}
+
+let game = new NoopCanvasGame();
+scene_stage(game);
+game.Start();

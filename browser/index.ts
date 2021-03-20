@@ -29,7 +29,7 @@ class BrowserGame extends Game {
     Start() {
         let tick = (now: number) => {
             let delta = (now - last) / 1000;
-            game.FrameUpdate(delta);
+            this.FrameUpdate(delta);
             last = now;
             this.AnimationRequestId = requestAnimationFrame(tick);
         };

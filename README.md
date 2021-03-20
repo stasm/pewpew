@@ -13,17 +13,14 @@
 
 ## Run In Node
 
-You can choose between running with a no-op `RenderingContext2D` class implemented in either pure JS or as a native Node module (written in C++). Keep in mind that the pure-JS version is likely to optimize the no-op draw calls away. In my measurements it's ca. 35% faster than the native module version.
+Build the targets runnable in Node.js:
 
-### Pure JS
+    $ make -C node
 
-    $ make -C node_js
-    $ node node_js/game.rollup.js
+You can choose between running with a no-op `RenderingContext2D` class implemented in either pure JS (`game_noop_canvas`) or as a native Node module (`game_fake_canvas`). The pure-JS version is likely to optimize the no-op draw calls away. In my measurements it's ca. 35% faster than the native module version.
 
-### Native Module
-
-    $ make -C node_native
-    $ node node_native/game.rollup.js
+    $ node node/game_noop_canvas.rollup.js
+    $ node node/game_fake_canvas.rollup.js
 
 ----
 

@@ -1,12 +1,13 @@
-all: game.rollup.js
-	@wc -l $<
+ROLLUPS = game.rollup.js
 
+all: $(ROLLUPS)
+clean:
+	rm -f *.js
+
+.PRECIOUS: index.js
 index.js: $(shell find .. -type f -name "*.ts")
-	@echo -n "Compiling project... "
-	@npx tsc
-	@echo "Done"
+	npx tsc
 
 game.rollup.js: index.js
-	@echo -n "Bundling files into one... "
-	@npx rollup --format iife $< --silent > $@
-	@echo "Done"
+	npx rollup --format cjs $< --silent > $@
+	wc $@

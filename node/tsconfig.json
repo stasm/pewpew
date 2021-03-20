@@ -6,7 +6,9 @@
         "strict": true,
     },
     "include": [
-        "./index.ts",
+        "game.ts",
+        "index_fake_canvas.ts",
+        "index_noop_canvas.ts",
         "../common/**/*",
         "../src/**/*",
     ]
