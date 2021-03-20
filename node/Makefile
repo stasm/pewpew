@@ -1,4 +1,7 @@
-ROLLUPS = game_noop_canvas.rollup.js game_fake_canvas.rollup.js
+ROLLUPS = \
+	game_fake_canvas.rollup.js \
+	game_node_canvas.rollup.js \
+	game_noop_canvas.rollup.js
 
 all: $(ROLLUPS)
 clean:

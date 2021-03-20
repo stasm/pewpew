@@ -17,10 +17,11 @@ Build the targets runnable in Node.js:
 
     $ make -C node
 
-You can choose between running with a no-op `RenderingContext2D` class implemented in either pure JS (`game_noop_canvas`) or as a native Node module (`game_fake_canvas`). The pure-JS version is likely to optimize the no-op draw calls away. In my measurements it's ca. 35% faster than the native module version.
+You can choose to run the simulation using one of the three versions:
 
-    $ node node/game_noop_canvas.rollup.js
-    $ node node/game_fake_canvas.rollup.js
+- `node node/game_node_canvas.rollup.js` uses the `canvas` package and renders to a rendering context implemented in Cairo.
+- `node node/game_fake_canvas.rollup.js` uses the `fake-canvas` package and renders to a no-op rendering context implemented as a native Node.js module in C++.
+- `node node/game_noop_canvas.rollup.js` renders to the `NoopRenderingContext2D` instance implemented in pure JS. This variant is likely to optimize the no-op draw calls away. In my measurements it's ca. 35% faster than the no-op native module version.
 
 ----
 
