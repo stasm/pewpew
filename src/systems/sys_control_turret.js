@@ -1,0 +1,48 @@
+import { element } from "../toolkit/random.js";
+const QUERY = 1 /* Aim */ | 64 /* ControlTurret */ | 1024 /* Grid */;
+export function sys_control_turret(game, delta) {
+    for (let i = 0; i < game.World.Signature.length; i++) {
+        if ((game.World.Signature[i] & QUERY) === QUERY) {
+            update(game, i);
+        }
+    }
+}
+function update(game, entity) {
+    let aim = game.World.Aim[entity];
+    let grid = game.World.Grid[entity];
+    if (!grid.Cell) {
+        return;
+    }
+    let mobs = find_nearest_mobs(game.World, grid.Cell);
+    if (mobs) {
+        let mob = element(mobs);
+        aim.Target = mob;
+    }
+    else {
+        aim.Target = undefined;
+    }
+}
+function find_nearest_mobs(world, cell) {
+    let queue = [cell];
+    let visited = new Set(queue);
+    while (queue.length > 0) {
+        let current = queue.shift();
+        let mobs = [];
+        for (let occupant of current.Occupants) {
+            if (world.Signature[occupant] & 32 /* ControlMob */) {
+                mobs.push(occupant);
+            }
+        }
+        if (mobs.length > 0) {
+            return mobs;
+        }
+        for (let neighbor of current.Neighbors) {
+            if (neighbor && !visited.has(neighbor)) {
+                queue.push(neighbor);
+                visited.add(neighbor);
+            }
+        }
+    }
+    return null;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3lzX2NvbnRyb2xfdHVycmV0LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsic3lzX2NvbnRyb2xfdHVycmV0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBLE9BQU8sRUFBQyxPQUFPLEVBQUMsTUFBTSxzQkFBc0IsQ0FBQztBQUc3QyxNQUFNLEtBQUssR0FBRyxvQ0FBMkIsa0JBQVcsQ0FBQztBQUVyRCxNQUFNLFVBQVUsa0JBQWtCLENBQUMsSUFBVSxFQUFFLEtBQWE7SUFDeEQsS0FBSyxJQUFJLENBQUMsR0FBRyxDQUFDLEVBQUUsQ0FBQyxHQUFHLElBQUksQ0FBQyxLQUFLLENBQUMsU0FBUyxDQUFDLE1BQU0sRUFBRSxDQUFDLEVBQUUsRUFBRTtRQUNsRCxJQUFJLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxTQUFTLENBQUMsQ0FBQyxDQUFDLEdBQUcsS0FBSyxDQUFDLEtBQUssS0FBSyxFQUFFO1lBQzdDLE1BQU0sQ0FBQyxJQUFJLEVBQUUsQ0FBQyxDQUFDLENBQUM7U0FDbkI7S0FDSjtBQUNMLENBQUM7QUFFRCxTQUFTLE1BQU0sQ0FBQyxJQUFVLEVBQUUsTUFBYztJQUN0QyxJQUFJLEdBQUcsR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxNQUFNLENBQUMsQ0FBQztJQUNqQyxJQUFJLElBQUksR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsQ0FBQztJQUVuQyxJQUFJLENBQUMsSUFBSSxDQUFDLElBQUksRUFBRTtRQUNaLE9BQU87S0FDVjtJQUVELElBQUksSUFBSSxHQUFHLGlCQUFpQixDQUFDLElBQUksQ0FBQyxLQUFLLEVBQUUsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO0lBQ3BELElBQUksSUFBSSxFQUFFO1FBQ04sSUFBSSxHQUFHLEdBQUcsT0FBTyxDQUFDLElBQUksQ0FBQyxDQUFDO1FBQ3hCLEdBQUcsQ0FBQyxNQUFNLEdBQUcsR0FBRyxDQUFDO0tBQ3BCO1NBQU07UUFDSCxHQUFHLENBQUMsTUFBTSxHQUFHLFNBQVMsQ0FBQztLQUMxQjtBQUNMLENBQUM7QUFFRCxTQUFTLGlCQUFpQixDQUFDLEtBQVksRUFBRSxJQUFjO0lBQ25ELElBQUksS0FBSyxHQUFHLENBQUMsSUFBSSxDQUFDLENBQUM7SUFDbkIsSUFBSSxPQUFPLEdBQWtCLElBQUksR0FBRyxDQUFDLEtBQUssQ0FBQyxDQUFDO0lBRTVDLE9BQU8sS0FBSyxDQUFDLE1BQU0sR0FBRyxDQUFDLEVBQUU7UUFDckIsSUFBSSxPQUFPLEdBQUcsS0FBSyxDQUFDLEtBQUssRUFBRyxDQUFDO1FBRTdCLElBQUksSUFBSSxHQUFrQixFQUFFLENBQUM7UUFDN0IsS0FBSyxJQUFJLFFBQVEsSUFBSSxPQUFPLENBQUMsU0FBUyxFQUFFO1lBQ3BDLElBQUksS0FBSyxDQUFDLFNBQVMsQ0FBQyxRQUFRLENBQUMsc0JBQWlCLEVBQUU7Z0JBQzVDLElBQUksQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLENBQUM7YUFDdkI7U0FDSjtRQUVELElBQUksSUFBSSxDQUFDLE1BQU0sR0FBRyxDQUFDLEVBQUU7WUFDakIsT0FBTyxJQUFJLENBQUM7U0FDZjtRQUVELEtBQUssSUFBSSxRQUFRLElBQUksT0FBTyxDQUFDLFNBQVMsRUFBRTtZQUNwQyxJQUFJLFFBQVEsSUFBSSxDQUFDLE9BQU8sQ0FBQyxHQUFHLENBQUMsUUFBUSxDQUFDLEVBQUU7Z0JBQ3BDLEtBQUssQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLENBQUM7Z0JBQ3JCLE9BQU8sQ0FBQyxHQUFHLENBQUMsUUFBUSxDQUFDLENBQUM7YUFDekI7U0FDSjtLQUNKO0lBRUQsT0FBTyxJQUFJLENBQUM7QUFDaEIsQ0FBQyJ9

@@ -1,0 +1,33 @@
+import { from_translation, invert, multiply, rotate, scale } from "../toolkit/mat2d.js";
+const QUERY = 32768 /* Transform2D */;
+export function sys_transform2d(game, delta) {
+    for (let i = 0; i < game.World.Signature.length; i++) {
+        if ((game.World.Signature[i] & QUERY) === QUERY) {
+            game.FrameStats.EntityCount++;
+            let transform = game.World.Transform2D[i];
+            if (transform.Dirty) {
+                update_transform(game.World, i, transform);
+            }
+        }
+    }
+}
+function update_transform(world, entity, transform) {
+    transform.Dirty = false;
+    from_translation(transform.WorldSpace, transform.Translation);
+    rotate(transform.WorldSpace, transform.WorldSpace, transform.Rotation);
+    scale(transform.WorldSpace, transform.WorldSpace, transform.Scale);
+    if (transform.Parent !== undefined) {
+        let parent_transform = world.Transform2D[transform.Parent];
+        multiply(transform.WorldSpace, parent_transform.WorldSpace, transform.WorldSpace);
+    }
+    invert(transform.SelfSpace, transform.WorldSpace);
+    if (world.Signature[entity] & 4 /* Children */) {
+        let hierarchy = world.Children[entity];
+        for (let child of hierarchy.Children) {
+            let child_transform = world.Transform2D[child];
+            child_transform.Parent = entity;
+            update_transform(world, child, child_transform);
+        }
+    }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3lzX3RyYW5zZm9ybTJkLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsic3lzX3RyYW5zZm9ybTJkLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBLE9BQU8sRUFBQyxnQkFBZ0IsRUFBRSxNQUFNLEVBQUUsUUFBUSxFQUFFLE1BQU0sRUFBRSxLQUFLLEVBQUMsTUFBTSxxQkFBcUIsQ0FBQztBQUd0RixNQUFNLEtBQUssMEJBQWtCLENBQUM7QUFFOUIsTUFBTSxVQUFVLGVBQWUsQ0FBQyxJQUFVLEVBQUUsS0FBYTtJQUNyRCxLQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsSUFBSSxDQUFDLEtBQUssQ0FBQyxTQUFTLENBQUMsTUFBTSxFQUFFLENBQUMsRUFBRSxFQUFFO1FBQ2xELElBQUksQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLFNBQVMsQ0FBQyxDQUFDLENBQUMsR0FBRyxLQUFLLENBQUMsS0FBSyxLQUFLLEVBQUU7WUFDN0MsSUFBSSxDQUFDLFVBQVUsQ0FBQyxXQUFXLEVBQUUsQ0FBQztZQUU5QixJQUFJLFNBQVMsR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLFdBQVcsQ0FBQyxDQUFDLENBQUMsQ0FBQztZQUMxQyxJQUFJLFNBQVMsQ0FBQyxLQUFLLEVBQUU7Z0JBQ2pCLGdCQUFnQixDQUFDLElBQUksQ0FBQyxLQUFLLEVBQUUsQ0FBQyxFQUFFLFNBQVMsQ0FBQyxDQUFDO2FBQzlDO1NBQ0o7S0FDSjtBQUNMLENBQUM7QUFFRCxTQUFTLGdCQUFnQixDQUFDLEtBQVksRUFBRSxNQUFjLEVBQUUsU0FBc0I7SUFDMUUsU0FBUyxDQUFDLEtBQUssR0FBRyxLQUFLLENBQUM7SUFFeEIsZ0JBQWdCLENBQUMsU0FBUyxDQUFDLFVBQVUsRUFBRSxTQUFTLENBQUMsV0FBVyxDQUFDLENBQUM7SUFDOUQsTUFBTSxDQUFDLFNBQVMsQ0FBQyxVQUFVLEVBQUUsU0FBUyxDQUFDLFVBQVUsRUFBRSxTQUFTLENBQUMsUUFBUSxDQUFDLENBQUM7SUFDdkUsS0FBSyxDQUFDLFNBQVMsQ0FBQyxVQUFVLEVBQUUsU0FBUyxDQUFDLFVBQVUsRUFBRSxTQUFTLENBQUMsS0FBSyxDQUFDLENBQUM7SUFFbkUsSUFBSSxTQUFTLENBQUMsTUFBTSxLQUFLLFNBQVMsRUFBRTtRQUNoQyxJQUFJLGdCQUFnQixHQUFHLEtBQUssQ0FBQyxXQUFXLENBQUMsU0FBUyxDQUFDLE1BQU0sQ0FBQyxDQUFDO1FBQzNELFFBQVEsQ0FBQyxTQUFTLENBQUMsVUFBVSxFQUFFLGdCQUFnQixDQUFDLFVBQVUsRUFBRSxTQUFTLENBQUMsVUFBVSxDQUFDLENBQUM7S0FDckY7SUFFRCxNQUFNLENBQUMsU0FBUyxDQUFDLFNBQVMsRUFBRSxTQUFTLENBQUMsVUFBVSxDQUFDLENBQUM7SUFFbEQsSUFBSSxLQUFLLENBQUMsU0FBUyxDQUFDLE1BQU0sQ0FBQyxtQkFBZSxFQUFFO1FBQ3hDLElBQUksU0FBUyxHQUFHLEtBQUssQ0FBQyxRQUFRLENBQUMsTUFBTSxDQUFDLENBQUM7UUFDdkMsS0FBSyxJQUFJLEtBQUssSUFBSSxTQUFTLENBQUMsUUFBUSxFQUFFO1lBQ2xDLElBQUksZUFBZSxHQUFHLEtBQUssQ0FBQyxXQUFXLENBQUMsS0FBSyxDQUFDLENBQUM7WUFDL0MsZUFBZSxDQUFDLE1BQU0sR0FBRyxNQUFNLENBQUM7WUFDaEMsZ0JBQWdCLENBQUMsS0FBSyxFQUFFLEtBQUssRUFBRSxlQUFlLENBQUMsQ0FBQztTQUNuRDtLQUNKO0FBQ0wsQ0FBQyJ9

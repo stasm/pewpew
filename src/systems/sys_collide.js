@@ -1,0 +1,40 @@
+import { get_translation } from "../toolkit/mat2d.js";
+import { distance_squared } from "../toolkit/vec2.js";
+const QUERY = 32768 /* Transform2D */ | 8 /* Collide */;
+export function sys_collide(game, delta) {
+    for (let y = 0; y < 10; y++) {
+        for (let x = 0; x < 10; x++) {
+            check_collisions_in_cell(game.World, game.Grid[y][x]);
+        }
+    }
+}
+function check_collisions_in_cell(world, cell) {
+    // Collect all colliders in this cell.
+    let all_colliders = [];
+    for (let occupant of cell.Occupants) {
+        if ((world.Signature[occupant] & QUERY) === QUERY) {
+            let transform = world.Transform2D[occupant];
+            let collider = world.Collide[occupant];
+            // Prepare the collider for this tick.
+            collider.Collisions = [];
+            get_translation(collider.Center, transform.WorldSpace);
+            all_colliders.push(collider);
+        }
+    }
+    for (let i = 0; i < all_colliders.length; i++) {
+        check_collisions_between(all_colliders[i], all_colliders, i + 1);
+    }
+}
+function check_collisions_between(collider, colliders, offset) {
+    for (let i = offset; i < colliders.length; i++) {
+        let other = colliders[i];
+        if (other !== collider && intersect(collider, other)) {
+            collider.Collisions.push(other.EntityId);
+            other.Collisions.push(collider.EntityId);
+        }
+    }
+}
+function intersect(a, b) {
+    return distance_squared(a.Center, b.Center) < (a.Radius + b.Radius) ** 2;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3lzX2NvbGxpZGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJzeXNfY29sbGlkZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHQSxPQUFPLEVBQUMsZUFBZSxFQUFDLE1BQU0scUJBQXFCLENBQUM7QUFDcEQsT0FBTyxFQUFDLGdCQUFnQixFQUFDLE1BQU0sb0JBQW9CLENBQUM7QUFHcEQsTUFBTSxLQUFLLEdBQUcseUNBQTZCLENBQUM7QUFFNUMsTUFBTSxVQUFVLFdBQVcsQ0FBQyxJQUFVLEVBQUUsS0FBYTtJQUNqRCxLQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsRUFBRSxFQUFFLENBQUMsRUFBRSxFQUFFO1FBQ3pCLEtBQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxFQUFFLEVBQUUsQ0FBQyxFQUFFLEVBQUU7WUFDekIsd0JBQXdCLENBQUMsSUFBSSxDQUFDLEtBQUssRUFBRSxJQUFJLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUM7U0FDekQ7S0FDSjtBQUNMLENBQUM7QUFFRCxTQUFTLHdCQUF3QixDQUFDLEtBQVksRUFBRSxJQUFjO0lBQzFELHNDQUFzQztJQUN0QyxJQUFJLGFBQWEsR0FBYyxFQUFFLENBQUM7SUFDbEMsS0FBSyxJQUFJLFFBQVEsSUFBSSxJQUFJLENBQUMsU0FBUyxFQUFFO1FBQ2pDLElBQUksQ0FBQyxLQUFLLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxHQUFHLEtBQUssQ0FBQyxLQUFLLEtBQUssRUFBRTtZQUMvQyxJQUFJLFNBQVMsR0FBRyxLQUFLLENBQUMsV0FBVyxDQUFDLFFBQVEsQ0FBQyxDQUFDO1lBQzVDLElBQUksUUFBUSxHQUFHLEtBQUssQ0FBQyxPQUFPLENBQUMsUUFBUSxDQUFDLENBQUM7WUFFdkMsc0NBQXNDO1lBQ3RDLFFBQVEsQ0FBQyxVQUFVLEdBQUcsRUFBRSxDQUFDO1lBQ3pCLGVBQWUsQ0FBQyxRQUFRLENBQUMsTUFBTSxFQUFFLFNBQVMsQ0FBQyxVQUFVLENBQUMsQ0FBQztZQUN2RCxhQUFhLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUFDO1NBQ2hDO0tBQ0o7SUFFRCxLQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsYUFBYSxDQUFDLE1BQU0sRUFBRSxDQUFDLEVBQUUsRUFBRTtRQUMzQyx3QkFBd0IsQ0FBQyxhQUFhLENBQUMsQ0FBQyxDQUFDLEVBQUUsYUFBYSxFQUFFLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQztLQUNwRTtBQUNMLENBQUM7QUFFRCxTQUFTLHdCQUF3QixDQUFDLFFBQWlCLEVBQUUsU0FBb0IsRUFBRSxNQUFjO0lBQ3JGLEtBQUssSUFBSSxDQUFDLEdBQUcsTUFBTSxFQUFFLENBQUMsR0FBRyxTQUFTLENBQUMsTUFBTSxFQUFFLENBQUMsRUFBRSxFQUFFO1FBQzVDLElBQUksS0FBSyxHQUFHLFNBQVMsQ0FBQyxDQUFDLENBQUMsQ0FBQztRQUN6QixJQUFJLEtBQUssS0FBSyxRQUFRLElBQUksU0FBUyxDQUFDLFFBQVEsRUFBRSxLQUFLLENBQUMsRUFBRTtZQUNsRCxRQUFRLENBQUMsVUFBVSxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsUUFBUSxDQUFDLENBQUM7WUFDekMsS0FBSyxDQUFDLFVBQVUsQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLFFBQVEsQ0FBQyxDQUFDO1NBQzVDO0tBQ0o7QUFDTCxDQUFDO0FBRUQsU0FBUyxTQUFTLENBQUMsQ0FBVSxFQUFFLENBQVU7SUFDckMsT0FBTyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUMsTUFBTSxFQUFFLENBQUMsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQyxNQUFNLEdBQUcsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxJQUFJLENBQUMsQ0FBQztBQUM3RSxDQUFDIn0=
